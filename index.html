@@ -1,1005 +1,318 @@
+# Street Crousty — Version Recodée Complète
+
+Copie-colle tout ce code dans ton fichier HTML.
+
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OralPath Trainer</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>Street Crousty</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#f0f2f5;--surface:#fff;--border:#e4e7ed;
-  --text:#0d1117;--muted:#6b7280;--dim:#9ca3af;
-  --accent:#6366f1;--accent-l:#f3f0ff;--accent-b:#e0e7ff;
-  --green:#16a34a;--green-l:#f0fdf4;
-  --red:#dc2626;--red-l:#fef2f2;
-  --radius:14px;--shadow:0 2px 8px rgba(0,0,0,.06);--shadow-md:0 4px 20px rgba(0,0,0,.09);
-  --font:'Outfit',sans-serif;--serif:'Instrument Serif',serif;
+--bg:#ffffff;
+--surface:#f8fbff;
+--surface2:#eef6ff;
+--border:#e6edf5;
+
+--accent:#ff8fb1;
+--accent2:#9ad6ff;
+
+--text:#1a1a1a;
+--muted:#7c8a9a;
+
+--radius:14px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
 
-/* ── NAV ── */
-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
-.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
-.nav-logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:17px;}
-.nav-logo-text{font-size:16px;font-weight:700;color:var(--text);}
-.nav-right{display:flex;align-items:center;gap:8px;}
-.score-pill{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg);border:1px solid var(--border);}
-.sc-g{color:var(--green);}.sc-r{color:var(--red);}
-
-/* ── SCREENS ── */
-.screen{display:none;}.screen.on{display:block;}
-
-/* ══════════════ HOME ══════════════ */
-.home{max-width:1080px;margin:0 auto;padding:32px 20px;}
-
-.hero-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:32px;}
-.hero-card{border-radius:var(--radius);padding:26px 24px;cursor:pointer;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;min-height:110px;display:flex;flex-direction:column;justify-content:space-between;}
-.hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
-.hc-flash{background:linear-gradient(135deg,#1e2030,#363a50);}
-.hc-cat{background:linear-gradient(135deg,#065f46,#047857);}
-.hc-name{background:linear-gradient(135deg,#7c2d12,#c0440a);}
-.hc-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;width:fit-content;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);}
-.hc-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:3px;}
-.hc-sub{font-size:12px;color:rgba(255,255,255,.55);}
-.hc-arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;}
-
-.sec-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
-
-.cat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
-.cat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:14px;}
-.cat-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.07);}
-.cat-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.ci-d{background:#fff3e0;}.ci-w{background:#e8f4fd;}
-.cat-name{font-size:14px;font-weight:700;margin-bottom:2px;}
-.cat-count{font-size:11px;color:var(--muted);}
-
-.groups-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.gc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 14px;cursor:pointer;transition:all .15s;text-align:center;}
-.gc:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
-.gc-em{font-size:24px;margin-bottom:6px;display:block;}
-.gc-num{font-size:9px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
-.gc-name{font-size:11px;font-weight:600;color:var(--text);line-height:1.3;}
-.gc-cnt{font-size:10px;color:var(--muted);margin-top:3px;}
-.gb1{border-top:3px solid #92400e;}.gb2{border-top:3px solid #1f2937;}.gb3{border-top:3px solid #1e40af;}
-.gb4{border-top:3px solid #ca8a04;}.gb5{border-top:3px solid #92400e;}.gb6{border-top:3px solid #6b7280;}
-.gb7{border-top:3px solid #6366f1;}.gb8{border-top:3px solid #0891b2;}.gb9{border-top:3px solid #7c3aed;}
-.gb10{border-top:3px solid #dc2626;}.gb11{border-top:3px solid #ea580c;}.gb12{border-top:3px solid #0d9488;}
-
-/* ══════════════ SHARED TRAINER HEADER ══════════════ */
-.trainer-wrap{max-width:1080px;margin:0 auto;padding:24px 20px;}
-.t-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.back-btn{width:34px;height:34px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);transition:all .15s;flex-shrink:0;}
-.back-btn:hover{border-color:var(--text);color:var(--text);}
-.t-session-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
-.t-session-name{font-size:18px;font-weight:700;color:var(--text);}
-.prog-wrap{margin-bottom:18px;}
-.prog-top{display:flex;justify-content:space-between;margin-bottom:6px;}
-.prog-lbl{font-size:11px;color:var(--muted);font-weight:600;}
-.prog-frac{font-size:12px;font-weight:700;}
-.prog-bg{height:5px;background:var(--border);border-radius:99px;overflow:hidden;}
-.prog-fg{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width .4s;}
-
-/* ══════════════ MODE A: FLASHCARD ══════════════ */
-.fc-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
-.fc-left{display:flex;flex-direction:column;gap:12px;}
-.photo-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
-.photo-top{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
-.pbadge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:20px;}
-.pb-d{background:#fff3e0;color:#ea580c;}.pb-w{background:#e8f4fd;color:#0891b2;}
-.photo-num{font-size:10px;color:var(--dim);font-weight:600;}
-.photo-frame{aspect-ratio:4/3;background:#f8f9fc;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--dim);}
-.photo-ph-txt{font-size:11px;text-align:center;}
-.photo-nav{padding:9px 14px;display:flex;align-items:center;justify-content:center;gap:9px;border-top:1px solid var(--border);}
-.pnbtn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.pnbtn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
-.pnbtn:disabled{opacity:.3;cursor:not-allowed;}
-.pndots{display:flex;gap:4px;}
-.pndot{width:5px;height:5px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s;}
-.pndot.on{background:var(--accent);transform:scale(1.3);}
-.hint-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);border-left:3px solid #0891b2;}
-.hint-lbl{font-size:9px;font-weight:700;color:#0891b2;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
-.hint-txt{font-size:12px;color:var(--muted);line-height:1.6;}
-
-.fc-right{display:flex;flex-direction:column;gap:12px;}
-.action-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:18px;box-shadow:var(--shadow);text-align:center;}
-.action-icon{width:56px;height:56px;border-radius:50%;background:var(--accent-l);border:1.5px solid var(--accent-b);display:flex;align-items:center;justify-content:center;font-size:22px;}
-.action-title{font-size:15px;font-weight:700;}
-.action-steps{display:flex;flex-direction:column;gap:7px;width:100%;max-width:250px;}
-.astep{display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--bg);border-radius:8px;text-align:left;}
-.asn{width:19px;height:19px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ast{font-size:11px;color:var(--muted);}
-.ast strong{color:var(--text);}
-.btn-reveal{width:100%;padding:12px;background:#0d1117;color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-.btn-reveal:hover{background:#1e2535;transform:translateY(-1px);}
-
-.corr-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:none;}
-.corr-card.on{display:block;animation:fadeUp .3s ease;}
-.diag-block{padding:16px 18px;background:linear-gradient(135deg,#f3f0ff,#ede9fe);border-bottom:1px solid #e0e7ff;}
-.diag-lbl{font-size:9px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
-.diag-name{font-size:21px;font-weight:700;color:#1e1b4b;line-height:1.2;font-family:var(--serif);}
-.diag-sub{font-size:11px;color:var(--accent);margin-top:2px;font-weight:500;}
-.diag-alias{display:inline-block;margin-top:7px;font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;background:#e0f2fe;color:#0891b2;border:1px solid #bae6fd;}
-.corr-scroll{max-height:calc(100vh - 360px);overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
-.corr-scroll::-webkit-scrollbar{width:3px;}.corr-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-.info-sec{}
-.info-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;display:flex;align-items:center;gap:4px;}
-.info-lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;}
-.il-d{color:#6366f1;}.il-t{color:#0891b2;}.il-tx{color:#16a34a;}.il-df{color:var(--muted);}
-.info-ul{list-style:none;display:flex;flex-direction:column;gap:2px;}
-.info-ul li{font-size:11.5px;color:#374151;padding-left:11px;position:relative;line-height:1.55;}
-.info-ul li::before{content:'–';position:absolute;left:0;color:var(--dim);}
-.diff-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
-.dpill{font-size:10px;padding:2px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted);background:var(--bg);}
-
-.t-actions{display:flex;gap:9px;margin-top:14px;}
-.btn-skip{flex:1;padding:11px;background:var(--surface);color:var(--muted);border:1.5px solid var(--border);border-radius:9px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;}
-.btn-skip:hover{border-color:var(--text);color:var(--text);}
-.btn-next-fc{flex:2;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-.btn-next-fc:hover{background:#4f46e5;}
-
-/* ══════════════ MODE B: CATEGORY QUIZ ══════════════ */
-.cq-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);margin-bottom:16px;}
-.cq-qlbl{font-size:9px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
-.cq-name{font-family:var(--serif);font-size:32px;color:var(--text);line-height:1.2;margin-bottom:5px;}
-.cq-hint{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:24px;}
-.cq-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.cq-col-title{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-.cq-choices{display:flex;flex-direction:column;gap:7px;}
-.cbtn{width:100%;padding:10px 14px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--font);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:9px;}
-.cbtn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-l);}
-.cbtn.sel{border-color:var(--accent);background:var(--accent-l);color:var(--accent);}
-.cbtn.ok{border-color:var(--green);background:var(--green-l);color:var(--green);}
-.cbtn.ko{border-color:var(--red);background:var(--red-l);color:var(--red);}
-.cbtn:disabled{cursor:not-allowed;}
-.cico{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
-.cq-validate{display:flex;justify-content:center;margin-top:20px;}
-.btn-val{padding:12px 36px;background:#0d1117;color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;opacity:.35;pointer-events:none;}
-.btn-val.rdy{opacity:1;pointer-events:auto;}.btn-val.rdy:hover{background:#1e2535;transform:translateY(-1px);}
-
-.res-banner{padding:14px 18px;border-radius:var(--radius);margin-bottom:12px;display:none;align-items:center;gap:11px;font-size:13px;font-weight:600;animation:fadeUp .25s ease;}
-.res-banner.on{display:flex;}
-.rb-ok{background:var(--green-l);border:1.5px solid #bbf7d0;color:var(--green);}
-.rb-ko{background:var(--red-l);border:1.5px solid #fecaca;color:var(--red);}
-.rb-ico{font-size:18px;}
-.rb-corr{font-weight:400;color:var(--muted);margin-top:2px;font-size:11px;}
-
-.btn-next-cq{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:none;margin-top:2px;}
-.btn-next-cq.on{display:block;}.btn-next-cq:hover{background:#4f46e5;}
-
-/* ══════════════ MODE C: NAME QUIZ ══════════════ */
-.nq-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
-.nq-left{display:flex;flex-direction:column;gap:12px;}
-
-.nq-right{}
-.nq-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
-.nq-qlbl{font-size:9px;font-weight:700;color:#ea580c;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
-.nq-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px;}
-.nq-choices{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
-.nbtn{width:100%;padding:10px 14px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--font);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:9px;}
-.nbtn:hover:not(:disabled){border-color:#ea580c;color:#ea580c;background:#fff7ed;}
-.nbtn.sel{border-color:#ea580c;background:#fff7ed;color:#ea580c;}
-.nbtn.ok{border-color:var(--green);background:var(--green-l);color:var(--green);}
-.nbtn.ko{border-color:var(--red);background:var(--red-l);color:var(--red);}
-.nbtn:disabled{cursor:not-allowed;}
-.nico{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
-.btn-val-nq{width:100%;padding:12px;background:#0d1117;color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;opacity:.35;pointer-events:none;}
-.btn-val-nq.rdy{opacity:1;pointer-events:auto;}.btn-val-nq.rdy:hover{background:#1e2535;}
-.nq-banner{padding:12px 16px;border-radius:10px;margin-top:12px;display:none;align-items:center;gap:10px;font-size:12px;font-weight:600;animation:fadeUp .25s ease;}
-.nq-banner.on{display:flex;}
-.nb-ok{background:var(--green-l);border:1.5px solid #bbf7d0;color:var(--green);}
-.nb-ko{background:var(--red-l);border:1.5px solid #fecaca;color:var(--red);}
-.btn-next-nq{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:none;margin-top:10px;}
-.btn-next-nq.on{display:block;}.btn-next-nq:hover{background:#4f46e5;}
-
-/* ══════════════ RESULTS ══════════════ */
-.results{text-align:center;padding:48px 0;}
-.res-emoji{font-size:60px;margin-bottom:18px;}
-.res-title{font-family:var(--serif);font-size:34px;margin-bottom:6px;}
-.res-sub{font-size:14px;color:var(--muted);margin-bottom:28px;}
-.res-stats{display:flex;gap:14px;justify-content:center;margin-bottom:28px;}
-.rs{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 24px;text-align:center;}
-.rs-n{font-size:30px;font-weight:800;font-family:var(--serif);}
-.rs-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;}
-.btn-restart{padding:13px 36px;background:#0d1117;color:#fff;border:none;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-.btn-restart:hover{background:#1e2535;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
-.shake{animation:shake .28s ease;}
-@media(max-width:700px){
-  .hero-grid,.fc-layout,.nq-layout,.cq-cols,.cat-row{grid-template-columns:1fr;}
-  .groups-grid{grid-template-columns:repeat(2,1fr);}
+body{
+background:var(--bg);
+font-family:'DM Sans',sans-serif;
+color:var(--text);
+padding-bottom:120px;
 }
+
+.hero{
+padding:30px 20px;
+text-align:center;
+border-bottom:1px solid var(--border);
+background:linear-gradient(160deg,#ffffff,#f5f9ff);
+}
+
+.logo{
+font-family:'Syne';
+font-size:32px;
+font-weight:800;
+color:var(--accent);
+}
+
+.section{
+padding:20px;
+border-bottom:1px solid var(--border);
+}
+
+.section-title{
+font-size:12px;
+letter-spacing:2px;
+color:var(--accent);
+margin-bottom:12px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid var(--border);
+background:white;
+}
+
+.tasty-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:14px;
+padding:15px;
+margin-bottom:15px;
+}
+
+.tasty-header{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+font-weight:600;
+}
+
+.remove-btn{
+background:#ffe6ef;
+border:none;
+padding:6px 10px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.qty-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:10px;
+}
+
+.qty-btn{
+width:30px;
+height:30px;
+border-radius:50%;
+border:1px solid var(--border);
+background:white;
+cursor:pointer;
+}
+
+.total-bar{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+border-top:1px solid var(--border);
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.order-btn{
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+border:none;
+padding:14px 20px;
+border-radius:12px;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
 </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-logo" onclick="goHome()">
-    <div class="nav-logo-icon">🦷</div>
-    <span class="nav-logo-text">OralPath</span>
-  </div>
-  <div class="nav-right">
-    <span class="score-pill sc-g">✓ <span id="sc-ok">0</span></span>
-    <span class="score-pill sc-r">✗ <span id="sc-ko">0</span></span>
-  </div>
-</nav>
-
-<!-- ══════════════════════ HOME ══════════════════════ -->
-<div class="screen on" id="s-home">
-<div class="home">
-
-  <div class="hero-grid">
-    <div class="hero-card hc-flash" onclick="startFC('all','Random — All Cases')">
-      <div><div class="hc-badge">🃏 Flashcards</div><div class="hc-title">Photo Flashcards</div><div class="hc-sub">See photo → write answer → correction</div></div>
-      <div class="hc-arrow">→</div>
-    </div>
-    <div class="hero-card hc-cat" onclick="startCQ('all','Category Quiz — All')">
-      <div><div class="hc-badge">🏷️ Categories</div><div class="hc-title">Category Quiz</div><div class="hc-sub">Name → find main cat + sub-cat</div></div>
-      <div class="hc-arrow">→</div>
-    </div>
-    <div class="hero-card hc-name" onclick="startNQ('all','Name Quiz — All Cases')">
-      <div><div class="hc-badge">🔍 Name it</div><div class="hc-title">Name the Pathology</div><div class="hc-sub">See photo → pick the right name</div></div>
-      <div class="hc-arrow">→</div>
-    </div>
-  </div>
-
-  <div class="sec-title" style="margin-bottom:10px;">By Category</div>
-  <div class="cat-row" style="margin-bottom:28px;">
-    <div class="cat-card" onclick="showCatMenu('dyschromies')">
-      <div class="cat-icon ci-d">🟤</div>
-      <div><div class="cat-name">Dyschromies</div><div class="cat-count">18 cases · 3 modes</div></div>
-    </div>
-    <div class="cat-card" onclick="showCatMenu('white')">
-      <div class="cat-icon ci-w">⬜</div>
-      <div><div class="cat-name">White Lesions</div><div class="cat-count">19 cases · 3 modes</div></div>
-    </div>
-  </div>
-
-  <!-- Cat sub-menu (hidden by default) -->
-  <div id="cat-submenu" style="display:none;margin-bottom:28px;">
-    <div class="sec-title" id="cat-submenu-title">Choose mode</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button onclick="startFC(catMenuTarget, catMenuTarget+' — Flashcards')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🃏 Flashcards</button>
-      <button onclick="startCQ(catMenuTarget, catMenuTarget+' — Category Quiz')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🏷️ Category Quiz</button>
-      <button onclick="startNQ(catMenuTarget, catMenuTarget+' — Name Quiz')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🔍 Name it</button>
-    </div>
-  </div>
-
-  <div class="sec-title">By Differential Diagnosis Group</div>
-  <div class="groups-grid">
-    <div class="gc gb1" onclick="showGroupMenu('group1','Group 1')"><span class="gc-em">🟤</span><div class="gc-num">Group 1</div><div class="gc-name">Brown diffuse symmetric</div><div class="gc-cnt">4 cases</div></div>
-    <div class="gc gb2" onclick="showGroupMenu('group2','Group 2')"><span class="gc-em">⚫</span><div class="gc-num">Group 2</div><div class="gc-name">Isolated dark macules</div><div class="gc-cnt">4 cases</div></div>
-    <div class="gc gb3" onclick="showGroupMenu('group3','Group 3')"><span class="gc-em">🔵</span><div class="gc-num">Group 3</div><div class="gc-name">Gingival line / metals</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb4" onclick="showGroupMenu('group4','Group 4')"><span class="gc-em">🟡</span><div class="gc-num">Group 4</div><div class="gc-name">Yellow pigmentation</div><div class="gc-cnt">2 cases</div></div>
-    <div class="gc gb5" onclick="showGroupMenu('group5','Group 5')"><span class="gc-em">☕</span><div class="gc-num">Group 5</div><div class="gc-name">Café-au-lait spots</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb6" onclick="showGroupMenu('group6','Group 6')"><span class="gc-em">⬜</span><div class="gc-num">Group 6</div><div class="gc-name">White normal variants</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb7" onclick="showGroupMenu('group7','Group 7')"><span class="gc-em">🧬</span><div class="gc-num">Group 7</div><div class="gc-name">Hereditary white plaques</div><div class="gc-cnt">2 cases</div></div>
-    <div class="gc gb8" onclick="showGroupMenu('group8','Group 8')"><span class="gc-em">🚬</span><div class="gc-num">Group 8</div><div class="gc-name">Tobacco white lesions</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb9" onclick="showGroupMenu('group9','Group 9')"><span class="gc-em">🔮</span><div class="gc-num">Group 9</div><div class="gc-name">OLP — 3 forms</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb10" onclick="showGroupMenu('group10','Group 10')"><span class="gc-em">🔴</span><div class="gc-num">Group 10</div><div class="gc-name">Leukoplasia — 3 forms</div><div class="gc-cnt">3 cases</div></div>
-    <div class="gc gb11" onclick="showGroupMenu('group11','Group 11')"><span class="gc-em">🥦</span><div class="gc-num">Group 11</div><div class="gc-name">Exophytic lesions</div><div class="gc-cnt">2 cases</div></div>
-    <div class="gc gb12" onclick="showGroupMenu('group12','Group 12')"><span class="gc-em">⚖️</span><div class="gc-num">Group 12</div><div class="gc-name">OLP vs Lichenoid</div><div class="gc-cnt">2 cases</div></div>
-  </div>
-
-  <!-- Group sub-menu -->
-  <div id="grp-submenu" style="display:none;margin-top:16px;">
-    <div class="sec-title" id="grp-submenu-title">Choose mode</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button onclick="startFC(grpMenuTarget, grpMenuLabel+' — Flashcards')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🃏 Flashcards</button>
-      <button onclick="startCQ(grpMenuTarget, grpMenuLabel+' — Category Quiz')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🏷️ Category Quiz</button>
-      <button onclick="startNQ(grpMenuTarget, grpMenuLabel+' — Name Quiz')" style="padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='var(--border)'">🔍 Name it</button>
-    </div>
-  </div>
-
-</div>
+<div class="hero">
+<div class="logo">Street Crousty</div>
 </div>
 
-<!-- ══════════════════════ FLASHCARD TRAINER ══════════════════════ -->
-<div class="screen" id="s-fc">
-<div class="trainer-wrap">
-  <div class="t-header">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <div><div class="t-session-label">🃏 Flashcards</div><div class="t-session-name" id="fc-title">—</div></div>
-  </div>
-  <div class="prog-wrap">
-    <div class="prog-top"><span class="prog-lbl">Progress</span><span class="prog-frac"><span id="fc-seen">0</span> / <span id="fc-total">0</span></span></div>
-    <div class="prog-bg"><div class="prog-fg" id="fc-bar" style="width:0%"></div></div>
-  </div>
-  <div class="fc-layout">
-    <div class="fc-left">
-      <div class="photo-card">
-        <div class="photo-top">
-          <div class="pbadge" id="fc-badge">—</div>
-          <div class="photo-num" id="fc-num">—</div>
-        </div>
-        <div class="photo-frame" id="fc-frame"><div class="photo-ph"><svg width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg><div class="photo-ph-txt">Clinical photo</div></div></div>
-        <div class="photo-nav" id="fc-pnav" style="display:none">
-          <button class="pnbtn" id="fc-prev" onclick="fcPrev()">‹</button>
-          <div class="pndots" id="fc-dots"></div>
-          <button class="pnbtn" id="fc-next-img" onclick="fcNext()">›</button>
-        </div>
-      </div>
-      <div class="hint-card"><div class="hint-lbl">📍 Clinical context</div><div class="hint-txt" id="fc-hint">—</div></div>
-    </div>
-    <div class="fc-right">
-      <div class="action-card" id="fc-action">
-        <div class="action-icon">📋</div>
-        <div class="action-title">Write your answer first</div>
-        <div class="action-steps">
-          <div class="astep"><div class="asn">1</div><div class="ast">Examine the photo</div></div>
-          <div class="astep"><div class="asn">2</div><div class="ast">Write: <strong>diagnosis, description, tests, treatment</strong></div></div>
-          <div class="astep"><div class="asn">3</div><div class="ast">Reveal the correction</div></div>
-        </div>
-        <button class="btn-reveal" onclick="fcReveal()">See Correction →</button>
-      </div>
-      <div class="corr-card" id="fc-corr">
-        <div class="diag-block">
-          <div class="diag-lbl">✓ Final Diagnosis</div>
-          <div class="diag-name" id="fc-dname">—</div>
-          <div class="diag-sub" id="fc-dsub"></div>
-          <div class="diag-alias" id="fc-dalias" style="display:none"></div>
-        </div>
-        <div class="corr-scroll">
-          <div class="info-sec"><div class="info-lbl il-d">Description</div><ul class="info-ul" id="fc-desc"></ul></div>
-          <div class="info-sec"><div class="info-lbl il-t">Complementary Tests</div><ul class="info-ul" id="fc-tests"></ul></div>
-          <div class="info-sec"><div class="info-lbl il-tx">Treatment</div><ul class="info-ul" id="fc-tx"></ul></div>
-          <div class="info-sec" id="fc-diff-sec" style="display:none"><div class="info-lbl il-df">Differential</div><div class="diff-pills" id="fc-diff"></div></div>
-        </div>
-      </div>
-      <div class="t-actions">
-        <button class="btn-skip" onclick="fcSkip()">Skip →</button>
-        <button class="btn-next-fc" onclick="fcNextCase()">Next case →</button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="section">
+<div class="section-title">Informations</div>
+<input placeholder="Nom" id="name"><br><br>
+<input placeholder="Téléphone" id="phone">
 </div>
 
-<!-- ══════════════════════ CATEGORY QUIZ ══════════════════════ -->
-<div class="screen" id="s-cq">
-<div class="trainer-wrap" style="max-width:720px;">
-  <div class="t-header">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <div><div class="t-session-label">🏷️ Category Quiz</div><div class="t-session-name" id="cq-title">—</div></div>
-  </div>
-  <div class="prog-wrap">
-    <div class="prog-top"><span class="prog-lbl">Progress</span><span class="prog-frac"><span id="cq-seen">0</span> / <span id="cq-total">0</span></span></div>
-    <div class="prog-bg"><div class="prog-fg" id="cq-bar" style="width:0%"></div></div>
-  </div>
-  <div class="cq-card" id="cq-card">
-    <div class="cq-qlbl">🏷️ Identify the categories</div>
-    <div class="cq-name" id="cq-name">—</div>
-    <div class="cq-hint" id="cq-hint">—</div>
-    <div class="cq-cols">
-      <div><div class="cq-col-title">Main Category</div><div class="cq-choices" id="cq-main"></div></div>
-      <div><div class="cq-col-title">Sub-category</div><div class="cq-choices" id="cq-sub"></div></div>
-    </div>
-    <div class="cq-validate"><button class="btn-val" id="cq-val" onclick="cqValidate()">Check Answer</button></div>
-  </div>
-  <div class="res-banner" id="cq-banner"><div class="rb-ico" id="cq-bico"></div><div><div id="cq-btxt"></div><div class="rb-corr" id="cq-bcorr"></div></div></div>
-  <button class="btn-next-cq" id="cq-next" onclick="cqNext()">Next →</button>
-  <div class="results" id="cq-results" style="display:none;">
-    <div class="res-emoji" id="cq-res-em">🎉</div><div class="res-title" id="cq-res-t">Done!</div><div class="res-sub" id="cq-res-s"></div>
-    <div class="res-stats"><div class="rs"><div class="rs-n sc-g" id="cq-r-ok">0</div><div class="rs-l">Correct</div></div><div class="rs"><div class="rs-n sc-r" id="cq-r-ko">0</div><div class="rs-l">Wrong</div></div><div class="rs"><div class="rs-n" style="color:var(--accent)" id="cq-r-pct">0%</div><div class="rs-l">Score</div></div></div>
-    <button class="btn-restart" onclick="restartCQ()">Restart 🔄</button>
-  </div>
-</div>
+<div class="section">
+<div class="section-title">Vos Tasty</div>
+
+<div id="tasty-list"></div>
+
+<button class="order-btn" style="width:100%;margin-top:10px" onclick="addTasty()">
++ Ajouter un Tasty
+</button>
+
 </div>
 
-<!-- ══════════════════════ NAME QUIZ ══════════════════════ -->
-<div class="screen" id="s-nq">
-<div class="trainer-wrap">
-  <div class="t-header">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <div><div class="t-session-label">🔍 Name the Pathology</div><div class="t-session-name" id="nq-title">—</div></div>
-  </div>
-  <div class="prog-wrap">
-    <div class="prog-top"><span class="prog-lbl">Progress</span><span class="prog-frac"><span id="nq-seen">0</span> / <span id="nq-total">0</span></span></div>
-    <div class="prog-bg"><div class="prog-fg" id="nq-bar" style="width:0%"></div></div>
-  </div>
-  <div class="nq-layout">
-    <div class="nq-left">
-      <div class="photo-card">
-        <div class="photo-top">
-          <div class="pbadge" id="nq-badge">—</div>
-          <div class="photo-num" id="nq-num">—</div>
-        </div>
-        <div class="photo-frame" id="nq-frame"><div class="photo-ph"><svg width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg></div></div>
-        <div class="photo-nav" id="nq-pnav" style="display:none">
-          <button class="pnbtn" id="nq-prev" onclick="nqPrev()">‹</button>
-          <div class="pndots" id="nq-dots"></div>
-          <button class="pnbtn" id="nq-next-img" onclick="nqNext()">›</button>
-        </div>
-      </div>
-      <div class="hint-card"><div class="hint-lbl">📍 Clinical context</div><div class="hint-txt" id="nq-hint">—</div></div>
-    </div>
-    <div class="nq-right">
-      <div class="nq-card" id="nq-qcard">
-        <div class="nq-qlbl">🔍 What pathology is this?</div>
-        <div class="nq-title">Select the correct diagnosis from the list:</div>
-        <div class="nq-choices" id="nq-choices"></div>
-        <button class="btn-val-nq" id="nq-val" onclick="nqValidate()">Check Answer</button>
-        <div class="nq-banner" id="nq-banner"><div class="rb-ico" id="nq-bico"></div><div><div id="nq-btxt"></div><div class="rb-corr" id="nq-bcorr"></div></div></div>
-        <button class="btn-next-nq" id="nq-next" onclick="nqNextCase()">Next case →</button>
-      </div>
-      <div class="results" id="nq-results" style="display:none;">
-        <div class="res-emoji" id="nq-res-em">🎉</div><div class="res-title" id="nq-res-t">Done!</div><div class="res-sub" id="nq-res-s"></div>
-        <div class="res-stats"><div class="rs"><div class="rs-n sc-g" id="nq-r-ok">0</div><div class="rs-l">Correct</div></div><div class="rs"><div class="rs-n sc-r" id="nq-r-ko">0</div><div class="rs-l">Wrong</div></div><div class="rs"><div class="rs-n" style="color:var(--accent)" id="nq-r-pct">0%</div><div class="rs-l">Score</div></div></div>
-        <button class="btn-restart" onclick="restartNQ()">Restart 🔄</button>
-      </div>
-    </div>
-  </div>
+<div class="section">
+<div class="section-title">Livraison</div>
+<select id="delivery" onchange="updateTotal()">
+<option value="0">Retrait gratuit</option>
+<option value="2.5">Livraison +2.50€</option>
+</select>
 </div>
+
+<div class="total-bar">
+<div>
+<div>Total</div>
+<div id="total">0€</div>
+</div>
+
+<button class="order-btn">
+Commander
+</button>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// DATABASE
-// ═══════════════════════════════════════════
-const CASES=[
-  {id:1,cat:'dyschromies',groups:['group3'],name:'Exogenous Stains',sub:'Chlorhexidine / Tobacco / Coffee / Tea',alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Stains',
-  images:['1-exogenous-stains.jpg'],hint:'Dark tongue coating or tooth discoloration. Note location and removability.',
-  description:['Chlorhexidine, tobacco, coffee/tea, mate, candies, chewing gums','Food stains but do not last','Possible metallic taste','Benign — no mucosal alteration'],
-  tests:['Clinical inspection only'],
-  treatment:['Eliminate the causative substance','Clean tongue','Increase oral hygiene','Avoid brushing the symphysis of tongue'],
-  differential:['Hairy tongue','Melanoplakia','Drug-induced pigmentation']},
 
-  {id:2,cat:'dyschromies',groups:['group2'],name:'Amalgam Tattoo',sub:'Exogenous / Mucosal tattoo',alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Tattoos',
-  images:['2-amalgam-tattoo.jpg'],hint:'Small flat bluish-black macule on gingiva near a tooth restoration.',
-  description:['Benign mucosal trauma','Macule (flat), bluish/black in color','Fuzzy edges','Visible on radiographs as amalgam particles','Permanent but benign'],
-  tests:['Clinical inspection','X-ray +++ (can see amalgam particles)','Diascopy +++'],
-  treatment:['ABCDE follow-up','No treatment needed if benign'],
-  differential:['Nevus','Melanotic macule',"Smoker's melanosis",'Melanoma']},
-
-  {id:3,cat:'dyschromies',groups:['group3'],name:'Lead Poisoning',sub:"Metal poisoning — Burton's line",alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Metal Poisoning',
-  images:['3-lead-poisoning.jpg'],hint:"Occupational exposure. Dark line at gingival margin.",
-  description:['Greyish macules on oral mucosa',"Burton's line: dark line between teeth and gingiva",'Related to working conditions','Accompanied by erythematous macules and alopecia'],
-  tests:['Blood tests: elevated lead levels'],
-  treatment:['Remove source of contamination','Chelation: Dimercaprol (severe) or Calcium disodium EDTA (moderate)'],
-  differential:['Bismuth poisoning','Normal pigmentation','Melanoplakia']},
-
-  {id:4,cat:'dyschromies',groups:['group3'],name:'Bismuth Poisoning',sub:'Metal poisoning — pharmaceutical',alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Metal Poisoning',
-  images:['4-bismuth-poisoning.jpg'],hint:'Bluish-black coloration on gums and tongue. Patient on bismuth preparations.',
-  description:['Bluish color on gums, tongue, jugal mucosa','Ulcers when severe','Erythema, ulcerations, xerostomia'],
-  tests:['Blood tests: elevated bismuth levels'],
-  treatment:['Remove the source of contamination'],
-  differential:['Lead poisoning','Drug-induced pigmentation','Melanoplakia']},
-
-  {id:5,cat:'dyschromies',groups:['group3'],name:'Arsenic Poisoning',sub:'Metal poisoning — historical poison',alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Metal Poisoning',
-  images:['5-arsenic-poisoning.jpg'],hint:'Multiple systemic symptoms, black foot disease, almond smell.',
-  description:['Erythema, ulcerations, xerostomia','Mees lines (nails)','Almond smell','Black foot disease, respiratory, neurological, cancers'],
-  tests:['Blood tests: elevated arsenic levels'],
-  treatment:['Antidote administration'],
-  differential:['Lead poisoning','Bismuth poisoning','Drug-induced pigmentation']},
-
-  {id:6,cat:'dyschromies',groups:['group4'],name:'Carotenemia',sub:'Pigmentation by carotenes — normal variant',alias:null,mainCat:'Dyschromies',subCat:'Exogenous Pigments — Carotene',
-  images:['6-carotenemia.jpg'],hint:'Yellow palate and palms/soles. Eyes NOT affected.',
-  description:['Yellow pigmentation on soft palate','Yellow on palms and soles','Eyes NOT affected (contrast with jaundice)','Variation of normality'],
-  tests:['No complementary tests: variation of normality'],
-  treatment:['No treatment or dietary adjustment'],
-  differential:['Jaundice (eyes affected)','Drug-induced pigmentation']},
-
-  {id:7,cat:'dyschromies',groups:['group1'],name:'Melanoplakia',sub:'Melanic pigmentation — endogenous',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Melanic',
-  images:['7-melanoplakia.jpg'],hint:'Dark brown gums, jugal mucosa and lips in darkly pigmented patient.',
-  description:['Dark brown gums, jugal mucosa, lips','Increased melanin in melanocytes','Normal in darkly pigmented individuals','Flat, permanent, not removable, diffuse, symmetrical'],
-  tests:['No complementary tests: variation of normality'],
-  treatment:['No treatment'],
-  differential:["Addison's disease",'Drug-induced pigmentation','Amalgam tattoo','Melanotic macule']},
-
-  {id:8,cat:'dyschromies',groups:['group1'],name:'Melasma',sub:'Melanic pigmentation — hormonal / pregnancy',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Melanic',
-  images:['8-melasma.jpg'],hint:'Darkening of facial skin during pregnancy. Symmetrical.',
-  description:['Darkening of facial skin','Brown pigmentation of skin and mucous membranes','Frequent during pregnancy','Diffuse, symmetrical, patches >1cm'],
-  tests:['Pregnancy test / history'],
-  treatment:['No treatment — resolves postpartum','Cryotherapy or laser for persistent cases'],
-  differential:["Addison's disease",'Drug-induced pigmentation','Melanoplakia']},
-
-  {id:9,cat:'dyschromies',groups:['group1'],name:"Addison's Disease",sub:'Adrenal insufficiency',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Melanic',
-  images:['9-addisons-disease.jpg','9-addisons-disease-2.jpg'],hint:'Brown oral pigmentation + hypotension + fatigue. Check cortisol.',
-  description:['Brown pigmentation of skin and mucous membranes','Cortisol and aldosterone missing','Rare endocrine disorder — causes: HIV, TB, tumors','Patches, diffuse, multifocal, associated with hypotension'],
-  tests:['Blood tests: low cortisol and high ACTH',"Inverse: Cushing's = too much cortisol"],
-  treatment:['Hydrocortisone 20–30 mg/day'],
-  differential:['Melasma','Melanoplakia','Peutz-Jeghers syndrome','Drug-induced pigmentation']},
-
-  {id:10,cat:'dyschromies',groups:[],name:'Acanthosis Nigricans',sub:'Metabolic — paraneoplastic',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Melanic',
-  images:['10-acanthosis-nigricans.jpg'],hint:'Dark velvety skin in skin folds. Obesity, diabetes, malignancy.',
-  description:['Dark, thick, velvety skin in folds','Associated with obesity, diabetes, oral contraception','Diffuse, poorly defined, can be paraneoplastic'],
-  tests:['Family history','May be caused by trauma or medication'],
-  treatment:['No treatment','Treat underlying cause'],
-  differential:['Drug-induced pigmentation','Melanoplakia',"Addison's disease"]},
-
-  {id:11,cat:'dyschromies',groups:[],name:'Petechiae / Ecchymosis',sub:'Hemoblobinic — vascular / traumatic',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Hemoblobinic',
-  images:['11-petechiae-ecchymosis.jpg','11-petechiae-ecchymosis-2.jpg','11-petechiae-ecchymosis-3.jpg'],hint:'Red/purple spots. Petechia <2mm, Ecchymosis >2mm. History of trauma.',
-  description:['Small flat reddish/purple lesions','Petechia: <2mm — Ecchymosis: >2mm','Related to trauma','Reabsorbs over 10–15 days'],
-  tests:['Platelet levels','May be caused by trauma or medication'],
-  treatment:['No specific treatment — self-resolving'],
-  differential:['Drug-induced pigmentation','Telangiectasia','Melanotic macule']},
-
-  {id:12,cat:'dyschromies',groups:['group4'],name:'Jaundice',sub:'Hemoblobinic — elevated bilirubin',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Hemoblobinic',
-  images:['12-jaundice.jpg'],hint:'Yellow skin + yellow eyes/sclera. High bilirubin.',
-  description:['All skin is yellow','Bilirubin: >2.5 mg/dL','Sclera (eyes) also affected — key vs carotenemia'],
-  tests:['Blood tests — liver function panel','Bilirubin sample'],
-  treatment:['Treat underlying hepatic/biliary cause'],
-  differential:['Carotenemia (eyes NOT affected)','Drug-induced pigmentation']},
-
-  {id:13,cat:'dyschromies',groups:['group1'],name:'Hemochromatosis',sub:'Metabolic — iron overload',alias:null,mainCat:'Dyschromies',subCat:'Endogenous Pigments — Metabolic',
-  images:['13-hemochromatosis.jpg'],hint:'Dark brown pigmentation. Iron accumulation in internal organs.',
-  description:['Dark brown pigmentation on skin and mucous membranes','Iron accumulation in internal organs','Genetic: autosomal dominant from birth'],
-  tests:['Blood tests: elevated iron levels'],
-  treatment:['Phlebotomy (primary)','Iron chelators if anemia/contraindication'],
-  differential:["Addison's disease",'Drug-induced pigmentation','Melanoplakia']},
-
-  {id:14,cat:'dyschromies',groups:['group5'],name:'Neurofibromatosis',sub:'Dysplastic process — Von Recklinghausen',alias:null,mainCat:'Dyschromies',subCat:'Dysplastic Processes',
-  images:['14-neurofibromatosis.jpg'],hint:'Café-au-lait spots + neurofibromas from birth.',
-  description:['From birth: autosomal dominant','Neurofibromas in skin and oral cavity','Café-au-lait spots','Multiple lesions, diffuse'],
-  tests:['Clinical diagnosis','Family history'],
-  treatment:['No treatment','Surgery to remove tumors if symptomatic'],
-  differential:['Peutz-Jeghers syndrome','McCune-Albright syndrome','Melanoplakia']},
-
-  {id:15,cat:'dyschromies',groups:['group5'],name:'Peutz-Jeghers Syndrome',sub:'GI polyposis + pigmentation',alias:null,mainCat:'Dyschromies',subCat:'Dysplastic Processes',
-  images:['15-peutz-jeghers.jpg','15-peutz-jeghers-2.jpg'],hint:'Brown/black 4–6mm spots on lips. Family history of GI polyps.',
-  description:['Brown/black spots, 4–6mm','From birth: autosomal dominant','Associated with GI polyposis'],
-  tests:['Colonoscopy','Family history'],
-  treatment:['No treatment for the spots','Monitor GI polyps'],
-  differential:['Melanoplakia','Melanotic macule','McCune-Albright syndrome','Nevus']},
-
-  {id:16,cat:'dyschromies',groups:['group5'],name:'McCune-Albright Syndrome',sub:'Polyostotic fibrous dysplasia',alias:null,mainCat:'Dyschromies',subCat:'Dysplastic Processes',
-  images:['16-mccune-albright.jpg'],hint:'Café-au-lait + early puberty + bone abnormalities. Young girl.',
-  description:['Café-au-lait spots on skin and mucous membranes','Polyostotic fibrous dysplasia (bones)','Hormonal changes and altered puberty'],
-  tests:['Early puberty signs','Bone imaging'],
-  treatment:['Hormone therapy for early puberty','No treatment for the spots'],
-  differential:['Neurofibromatosis','Peutz-Jeghers syndrome','Melanoplakia']},
-
-  {id:17,cat:'dyschromies',groups:['group2'],name:'Oral Nevus',sub:'Benign tumor — melanocytic',alias:null,mainCat:'Dyschromies',subCat:'Tumors — Benign',
-  images:['17-oral-nevus.jpg'],hint:'Small isolated blue/brown macule on lip, gum, or palate.',
-  description:['Blue/black/brown, flat or slightly elevated, homogeneous','Small, well defined, isolated (single lesion)','Lip, gum, palate','More frequent in women','Types: Junctional, Compound, Intramucosal, Blue'],
-  tests:['Clinical inspection','ABCDE assessment','Gauze test'],
-  treatment:['ABCDE follow-up','Surgical excision only if malignant or for esthetics'],
-  differential:['Melanoma','Melanotic macule','Amalgam tattoo']},
-
-  {id:18,cat:'dyschromies',groups:['group2'],name:'Oral Melanoma',sub:'Malignant tumor — EARLY DIAGNOSIS CRITICAL',alias:null,mainCat:'Dyschromies',subCat:'Tumors — Malignant',
-  images:['18-oral-melanoma.jpg'],hint:'Irregular pigmented lesion on palate or gingiva. ABCDE positive.',
-  description:['Malignant tumor — uncommon in the mouth','Pigmented lesion in palate or gingiva','EARLY DIAGNOSIS CRITICAL — bad prognosis if late','Lentiginous melanoma: most frequent type in mouth'],
-  tests:['ABCDE assessment','Gauze test','BIOPSY','Refer to hospital immediately'],
-  treatment:['Refer to hospital for surgery','Wide surgical excision'],
-  differential:['Nevus','Amalgam tattoo','Melanotic macule',"Addison's disease"]},
-
-  {id:19,cat:'white',groups:['group6'],name:'Alba Line (Linea Alba)',sub:'Variation from normal',alias:null,mainCat:'White Lesions',subCat:'Variations from Normal',
-  images:['19-alba-line.jpg'],hint:'White line at occlusal level on buccal mucosa. Bilateral.',
-  description:['White line in buccal mucosa at occlusal level','Unilateral or bilateral','Excess of keratin due to occlusal friction','Soft, asymptomatic, opalescent'],
-  tests:['No complementary test: variation of normality'],
-  treatment:['No treatment — physiological'],
-  differential:['Leukoplakia','Lichen planus','Frictional keratosis']},
-
-  {id:20,cat:'white',groups:['group6'],name:'Leukoedema',sub:'Variation from normal — disappears on stretching',alias:null,mainCat:'White Lesions',subCat:'Variations from Normal',
-  images:['20-leukoedema.jpg'],hint:'White opalescent lesion covering entire buccal mucosa. KEY: disappears on stretching.',
-  description:['White lesion covering entire buccal mucosa','Bilateral','KEY: disappears when mucosa is pulled/stretched','Smooth, soft, not scrapable'],
-  tests:['Stretch test: lesion disappears → confirmed'],
-  treatment:['No treatment — physiological'],
-  differential:['White sponge nevus','Leukoplakia','Candidiasis','Alba line']},
-
-  {id:21,cat:'white',groups:['group6'],name:'Fordyce Granules',sub:'Variation from normal — ectopic sebaceous glands',alias:null,mainCat:'White Lesions',subCat:'Variations from Normal',
-  images:['21-fordyce-granules.jpg'],hint:'Small yellowish-white granules on buccal and labial mucosa. Bilateral.',
-  description:['Yellowish-white granules on buccal and labial mucosa','Sebaceous glands more superficial than normal','Bilateral, asymptomatic'],
-  tests:['No complementary test: variation of normality'],
-  treatment:['No treatment — physiological'],
-  differential:['Candidiasis','White sponge nevus','Leukoplakia']},
-
-  {id:22,cat:'white',groups:['group7'],name:'White Sponge Nevus',sub:"Hereditary — autosomal dominant, benign",alias:"= Cannon's Disease",mainCat:'White Lesions',subCat:'Hereditary Alterations',
-  images:['22-white-sponge-nevus.jpg'],hint:"Bilateral thickened folded white plaques since childhood. Cannon's Disease.",
-  description:['Bilateral, buccal mucosa (also lateral tongue)','Inherited — autosomal dominant, appears at puberty','Homogeneous plate white lesion with folds','Conjunctival involvement possible','NO spongiosis — only hyperkeratosis'],
-  tests:['Clinical history and inspection','Biopsy to differentiate from leukoedema','Microscopy: hyperkeratosis, NO spongiosis'],
-  treatment:['NO TREATMENT — never malignant'],
-  differential:['Leukoedema','Leukoplakia','Candidiasis','Lichen planus']},
-
-  {id:23,cat:'white',groups:['group7'],name:'Congenital Dyskeratosis',sub:'Hereditary — autosomal dominant',alias:null,mainCat:'White Lesions',subCat:'Hereditary Alterations',
-  images:['23-congenital-dyskeratosis.jpg'],hint:'Bilateral white lesions on lips, buccal mucosa, lingual margins.',
-  description:['On lips, buccal mucosa and lingual margins','Inflammatory reaction, autosomal dominant','Bilateral, white plaque with folds'],
-  tests:['Biopsy if atypical'],
-  treatment:['No treatment'],
-  differential:['White sponge nevus','Leukoplakia','Lichen planus']},
-
-  {id:24,cat:'white',groups:[],name:'Frictional Keratosis',sub:'Reactive lesion — trauma-induced',alias:null,mainCat:'White Lesions',subCat:'Reactive Lesions',
-  images:['24-frictional-keratosis.jpg'],hint:'White lesion beyond the alba line. Chronic trauma.',
-  description:['Protective reaction against trauma','Buccal mucosa at occlusal level beyond the alba line','Does NOT come off, increased keratin formation'],
-  tests:['Scratch test: does not come off','Biopsy if doubt'],
-  treatment:['Stop the stimulus / friction'],
-  differential:['Alba line','Leukoplakia','Candidiasis','Lichen planus']},
-
-  {id:25,cat:'white',groups:[],name:'Morsicatio Buccarum',sub:'Reactive lesion — chronic cheek biting',alias:null,mainCat:'White Lesions',subCat:'Reactive Lesions',
-  images:['25-morsicatio-buccarum.jpg'],hint:'Irregular shredded white surface on buccal mucosa. Cheek biting habit.',
-  description:['Chronic cheek biting habit','Buccal mucosa at occlusal level','Rough, irregular/shredded white appearance'],
-  tests:['Habits — sucking/biting history','Biopsy if doubt'],
-  treatment:['No treatment — stop the habit'],
-  differential:['Leukoplakia','Lichen planus','Frictional keratosis','Alba line']},
-
-  {id:26,cat:'white',groups:['group8'],name:'Cigarette Keratosis',sub:'Reactive lesion — tobacco (no filter)',alias:null,mainCat:'White Lesions',subCat:'Reactive Lesions — Keratosis & Tobacco',
-  images:['26-cigarette-keratosis.jpg'],hint:'White cracked lesion at cigarette placement on lip. No filter smoker.',
-  description:['People who smoke without filter or marijuana','Related to lip closure and cigarette placement','Vermillion borders NOT involved','Cracked white lesion'],
-  tests:['Can only be on smokers'],
-  treatment:['Etiological treatment: quit tobacco'],
-  differential:['Leukoplakia','Lichen planus','Frictional keratosis']},
-
-  {id:27,cat:'white',groups:['group8'],name:'Nicotinic Palatitis',sub:'Reactive lesion — tobacco on palate',alias:null,mainCat:'White Lesions',subCat:'Reactive Lesions — Keratosis & Tobacco',
-  images:['27-nicotinic-palatitis.jpg'],hint:'White palate with central red stippling (salivary gland openings). Smoker.',
-  description:['Cracked white lesion on palate with central reddish stippling','Asymptomatic — only in smokers','Red dots = salivary gland ostia inflamed'],
-  tests:['Can only be on smokers'],
-  treatment:['Etiological treatment: quit tobacco'],
-  differential:['Leukoplakia','Lichen planus']},
-
-  {id:28,cat:'white',groups:['group8'],name:"Snuff Dipper's Patch",sub:'Reactive lesion — smokeless tobacco',alias:null,mainCat:'White Lesions',subCat:'Reactive Lesions — Keratosis & Tobacco',
-  images:['28-snuff-dippers-patch.jpg'],hint:'White lesion at exact site of smokeless tobacco placement.',
-  description:['Persistent use of unburned tobacco (snuff)','Affected area = where tobacco is placed','White lesion, location-specific'],
-  tests:['Can only be on smokeless tobacco users'],
-  treatment:['Etiological treatment: quit tobacco'],
-  differential:['Leukoplakia','Verrucous carcinoma','Frictional keratosis']},
-
-  {id:29,cat:'white',groups:['group11'],name:'Verrucous Carcinoma of Ackerman',sub:'Potentially malignant — smokeless tobacco',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders',
-  images:['29-verrucous-carcinoma.jpg'],hint:'Cauliflower-like exophytic white-red mass. Firm. Men >60y.',
-  description:['Warty, exophytic white-red mass, firm to palpation','Cauliflower-like tumor','Long-term smokeless tobacco at placement site','Men > 60 years old'],
-  tests:['Incisional biopsy','Remove with extensive borders'],
-  treatment:['Wide surgical excision'],
-  differential:['Leukoplakia','Squamous cell carcinoma','Exophytic leukoplakia']},
-
-  {id:30,cat:'white',groups:[],name:'Actinic Cheilitis',sub:'Potentially malignant — sun exposure',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders',
-  images:['30-actinic-cheilitis.jpg'],hint:'Edematous, painful, reddish lip that peels. Sun exposure.',
-  description:['Caused by UV / sun exposure','Edematous, painful, enlarged, reddish lip','Begins to peel, scarring develops'],
-  tests:["Biopsy if doesn't disappear in 2–3 weeks"],
-  treatment:['Avoid sun, protection and hydration','Excellent prognosis if agent removed early'],
-  differential:['Leukoplakia','Lichen planus (erosive)','Contact cheilitis']},
-
-  {id:31,cat:'white',groups:['group12'],name:'Lichenoid Reactions',sub:'Potentially malignant — hypersensitivity',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders',
-  images:['31-lichenoid-reactions.jpg'],hint:'UNILATERAL white lesion adjacent to dental restoration or medication.',
-  description:['Hypersensitivity to restorative or orthodontic treatments','More frequent in women after 30yo','Located adjacent to causing material','UNILATERAL — key differentiator from OLP'],
-  tests:['Incisional biopsy','Clinically similar to OLP histologically'],
-  treatment:['Remove the causing agent','Healing in weeks after removal'],
-  differential:['OLP (bilateral vs unilateral)','Leukoplakia','Candidiasis']},
-
-  {id:32,cat:'white',groups:['group9','group12'],name:'Reticular OLP',sub:'OLP — most common, asymptomatic',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders — OLP',
-  images:['32-reticular-olp.jpg'],hint:'Bilateral Wickham striae on buccal mucosa. Asymptomatic. Does not scrape off.',
-  description:['Bilateral whitish reticule — Wickham striae','Normally asymptomatic, does NOT come off','Desquamative gingivitis possible','Chronic autoimmune, usually >40yo'],
-  tests:['Incisional biopsy — malignization risk 4%','Diagnosis by exclusion then biopsy'],
-  treatment:['Asymptomatic: follow-up every 6 months','Symptomatic: topical corticoids → Triamcinolone 0.1–0.5% or Clobetasol 0.025–0.05%','Week 1: 3×/day → Week 2: 2×/day → Week 3: 1×/day → Week 4: 1/2×/day','Systemic: Prednisone 1–1.5mg/kg/day','No response: immunosuppressants → surgery/laser'],
-  differential:['Lichenoid reactions (unilateral)','Leukoplakia','Candidiasis','White sponge nevus']},
-
-  {id:33,cat:'white',groups:['group9'],name:'Atrophic / Erosive OLP',sub:'OLP — painful erosive variant',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders — OLP',
-  images:['33-atrophic-erosive-olp.jpg','33-atrophic-erosive-olp-2.jpg'],hint:'Pinkish erythematous area, thinned epithelium, blood vessels visible. Painful.',
-  description:['Pinkish, erythematous area','Thinning of epithelium revealing small blood vessels','Tongue, buccal mucosa and gums','Painful: burning to intense pain','Bilateral, desquamative gingivitis'],
-  tests:['Incisional biopsy — malignization risk 4%'],
-  treatment:['Topical corticosteroids preferred','Systemic if topical fails','No response: immunosuppressants, surgery, laser'],
-  differential:['Reticular OLP','Candidiasis','Leukoplakia','Lichenoid reactions','Pemphigus']},
-
-  {id:34,cat:'white',groups:['group9'],name:'Plaque-like OLP',sub:'OLP — raised white plaque variant',alias:null,mainCat:'White Lesions',subCat:'Potentially Malignant Disorders — OLP',
-  images:['34-plaque-like-olp.jpg','34-plaque-like-olp-2.jpg'],hint:'Raised rough white plaque on tongue and gums. Resistant to treatments.',
-  description:['On tongue and gums — less frequent form','Raised white lesions, granular and rough texture','Does NOT come off when scraping','Resistant to treatments'],
-  tests:['Incisional biopsy — malignization risk 4%'],
-  treatment:['Corticoids (topical and/or systemic)','Surgery or laser if no response'],
-  differential:['Homogeneous leukoplakia','Candidiasis','Reticular OLP']},
-
-  {id:35,cat:'white',groups:['group10'],name:'Homogeneous Leukoplakia',sub:'Oral leukoplasia — most prevalent form',alias:null,mainCat:'White Lesions',subCat:'Oral Leukoplasia',
-  images:['35-homogeneous-leukoplakia.jpg','35-homogeneous-leukoplakia-2.jpg'],hint:'Uniform white plaque. Asymptomatic. Discovered on routine exam.',
-  description:['Most prevalent form — most common precancerous lesion','White plaque, well-defined but irregular borders','Uniform, smooth or cracked/wrinkled','Asymptomatic, men 40–49yo and women >70yo'],
-  tests:['Eliminate etiological factors first (tobacco, alcohol)','Check-up 2–4 weeks: gone = OK / still here = BIOPSY','Biopsy: With dysplasia = Leukodysplasia / Without = Leukokeratosis'],
-  treatment:['Eliminate etiological factors','Without dysplasia: antifungals if candida; topical/systemic treatment','With dysplasia: surgery with safety margins'],
-  differential:['Oral Lichen Planus','Candidiasis','Frictional keratosis','Lichenoid reactions']},
-
-  {id:36,cat:'white',groups:['group10'],name:'Non-Homogeneous Leukoplakia',sub:'Oral leukoplasia — high malignant potential',alias:null,mainCat:'White Lesions',subCat:'Oral Leukoplasia',
-  images:['36-non-homogeneous-leukoplakia.jpg'],hint:'Uneven surface, white AND red, symptomatic. Associated with yeast.',
-  description:['Uneven surfaces, symptomatic, causes pain','Various colors: white AND red in one lesion','Associated with yeast infection ++','High incidence of carcinomas in situ'],
-  tests:['Incisional biopsy — high priority','Histopathological study for dysplasia'],
-  treatment:['Eliminate etiological factors + biopsy mandatory','With dysplasia: surgery with safety margins','Antifungals if candida'],
-  differential:['Homogeneous leukoplakia','Lichen planus (erosive)','Candidiasis','Erythroplakia']},
-
-  {id:37,cat:'white',groups:['group10','group11'],name:'Exophytic / Verrucous Leukoplakia',sub:'Oral leukoplasia — HPV-associated',alias:null,mainCat:'White Lesions',subCat:'Oral Leukoplasia',
-  images:['37-exophytic-leukoplakia.jpg'],hint:'Filiform/cauliflower-like projections on vermilion. HPV-associated.',
-  description:['Whitish lesion with irregular filiform projections','Cauliflower-like lesions on the vermilion border','Treatment resistance, associated with HPV ++','Sometimes indistinguishable from verrucous carcinoma'],
-  tests:['Incisional biopsy','HPV testing'],
-  treatment:['Surgery with safety margins','Laser or cryotherapy','Close follow-up'],
-  differential:['Verrucous carcinoma of Ackerman','Papilloma','Condyloma acuminatum','Non-homogeneous leukoplakia']},
+const drinks=[
+"Coca",
+"Ice Tea",
+"Fanta",
+"Sprite",
+"Oasis",
+"Eau"
 ];
 
-// Category quiz data
-const ALL_MAINS=['Dyschromies','White Lesions'];
-const ALL_SUBS=['Exogenous Pigments — Stains','Exogenous Pigments — Tattoos','Exogenous Pigments — Metal Poisoning','Exogenous Pigments — Carotene','Endogenous Pigments — Melanic','Endogenous Pigments — Hemoblobinic','Endogenous Pigments — Metabolic','Dysplastic Processes','Tumors — Benign','Tumors — Malignant','Variations from Normal','Hereditary Alterations','Reactive Lesions','Reactive Lesions — Keratosis & Tobacco','Potentially Malignant Disorders','Potentially Malignant Disorders — OLP','Oral Leukoplasia'];
+let tastyList=[];
 
-// ═══════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════
-let globalOk=0,globalKo=0;
-let catMenuTarget='',grpMenuTarget='',grpMenuLabel='';
+function addTasty(){
 
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function getPool(f){
-  if(f==='all')return[...CASES];
-  if(f==='dyschromies')return CASES.filter(c=>c.cat==='dyschromies');
-  if(f==='white')return CASES.filter(c=>c.cat==='white');
-  if(f.startsWith('group'))return CASES.filter(c=>c.groups.includes(f));
-  return[...CASES];
-}
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');}
-function goHome(){show('s-home');}
-function updScore(){document.getElementById('sc-ok').textContent=globalOk;document.getElementById('sc-ko').textContent=globalKo;}
+tastyList.push({
 
-function showCatMenu(cat){
-  catMenuTarget=cat;
-  const m=document.getElementById('cat-submenu');
-  const t=document.getElementById('cat-submenu-title');
-  document.getElementById('grp-submenu').style.display='none';
-  m.style.display='block';
-  t.textContent=(cat==='dyschromies'?'Dyschromies':'White Lesions')+' — Choose mode';
-}
-function showGroupMenu(grp,label){
-  grpMenuTarget=grp;grpMenuLabel=label;
-  const m=document.getElementById('grp-submenu');
-  const t=document.getElementById('grp-submenu-title');
-  document.getElementById('cat-submenu').style.display='none';
-  m.style.display='block';
-  t.textContent=label+' — Choose mode';
+type:'',
+drink:'',
+sauce:0,
+chicken:0
+
+});
+
+render();
+
 }
 
-// ═══════════════════════════════════════════
-// MODE A: FLASHCARDS
-// ═══════════════════════════════════════════
-let fc={queue:[],cur:null,seen:0,total:0,imgIdx:0};
+function removeTasty(i){
 
-function startFC(filter,title){
-  document.getElementById('cat-submenu').style.display='none';
-  document.getElementById('grp-submenu').style.display='none';
-  fc.queue=shuffle(getPool(filter));
-  fc.cur=null;fc.seen=0;fc.total=fc.queue.length;fc.imgIdx=0;
-  document.getElementById('fc-title').textContent=title;
-  document.getElementById('fc-total').textContent=fc.total;
-  show('s-fc');
-  fcLoad();
-}
-function fcLoad(){
-  if(fc.queue.length===0){fc.queue=shuffle(getPool('all'));}
-  fc.cur=fc.queue.shift();fc.imgIdx=0;
-  document.getElementById('fc-seen').textContent=fc.seen;
-  document.getElementById('fc-bar').style.width=Math.min((fc.seen/fc.total)*100,100)+'%';
-  const c=fc.cur;
-  const badge=document.getElementById('fc-badge');
-  badge.textContent=c.cat==='dyschromies'?'Dyschromies':'White Lesions';
-  badge.className='pbadge '+(c.cat==='dyschromies'?'pb-d':'pb-w');
-  document.getElementById('fc-num').textContent='Case '+c.id+' / '+CASES.length;
-  document.getElementById('fc-hint').textContent=c.hint;
-  fcRenderImg();
-  document.getElementById('fc-action').style.display='flex';
-  document.getElementById('fc-corr').classList.remove('on');
-}
-function fcRenderImg(){
-  const c=fc.cur,frame=document.getElementById('fc-frame'),nav=document.getElementById('fc-pnav'),dots=document.getElementById('fc-dots'),imgs=c.images||[];
-  const src=imgs[fc.imgIdx]?'images/'+imgs[fc.imgIdx]:null;
-  if(src){const img=document.createElement('img');img.src=src;img.alt=c.name;img.onerror=function(){this.parentElement.innerHTML=`<div class="photo-ph" style="color:#ea580c"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg><div class="photo-ph-txt">Not found: ${imgs[fc.imgIdx]}</div></div>`;};frame.innerHTML='';frame.appendChild(img);}
-  else{frame.innerHTML='<div class="photo-ph"><svg width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg><div class="photo-ph-txt">No image</div></div>';}
-  if(imgs.length>1){nav.style.display='flex';dots.innerHTML=imgs.map((_,i)=>`<div class="pndot ${i===fc.imgIdx?'on':''}" onclick="fcGoImg(${i})"></div>`).join('');document.getElementById('fc-prev').disabled=fc.imgIdx===0;document.getElementById('fc-next-img').disabled=fc.imgIdx===imgs.length-1;}
-  else{nav.style.display='none';}
-}
-function fcPrev(){if(fc.imgIdx>0){fc.imgIdx--;fcRenderImg();}}
-function fcNext(){const l=fc.cur.images?.length||1;if(fc.imgIdx<l-1){fc.imgIdx++;fcRenderImg();}}
-function fcGoImg(i){fc.imgIdx=i;fcRenderImg();}
-function fcReveal(){
-  const c=fc.cur;fc.seen++;
-  document.getElementById('fc-seen').textContent=fc.seen;
-  document.getElementById('fc-bar').style.width=Math.min((fc.seen/fc.total)*100,100)+'%';
-  document.getElementById('fc-dname').textContent=c.name;
-  document.getElementById('fc-dsub').textContent=c.sub;
-  const al=document.getElementById('fc-dalias');
-  if(c.alias){al.textContent=c.alias;al.style.display='inline-block';}else{al.style.display='none';}
-  document.getElementById('fc-desc').innerHTML=c.description.map(d=>`<li>${d}</li>`).join('');
-  document.getElementById('fc-tests').innerHTML=c.tests.map(t=>`<li>${t}</li>`).join('');
-  document.getElementById('fc-tx').innerHTML=(c.treatment?.length)?c.treatment.map(t=>`<li>${t}</li>`).join(''):'<li style="color:var(--dim);font-style:italic">No specific treatment</li>';
-  const ds=document.getElementById('fc-diff-sec');
-  if(c.differential?.length){ds.style.display='block';document.getElementById('fc-diff').innerHTML=c.differential.map(d=>`<span class="dpill">${d}</span>`).join('');}else{ds.style.display='none';}
-  document.getElementById('fc-action').style.display='none';
-  document.getElementById('fc-corr').classList.add('on');
-}
-function fcNextCase(){fcLoad();}
-function fcSkip(){fc.queue.splice(Math.floor(Math.random()*Math.max(fc.queue.length,1)),0,fc.cur);fcLoad();}
+tastyList.splice(i,1);
+render();
 
-// ═══════════════════════════════════════════
-// MODE B: CATEGORY QUIZ
-// ═══════════════════════════════════════════
-let cq={pool:[],queue:[],cur:null,seen:0,total:0,ok:0,ko:0,selMain:null,selSub:null,answered:false};
+}
 
-function startCQ(filter,title){
-  document.getElementById('cat-submenu').style.display='none';
-  document.getElementById('grp-submenu').style.display='none';
-  cq.pool=getPool(filter);
-  cq.queue=shuffle([...cq.pool]);
-  cq.seen=0;cq.total=cq.queue.length;cq.ok=0;cq.ko=0;cq.answered=false;
-  document.getElementById('cq-title').textContent=title;
-  document.getElementById('cq-total').textContent=cq.total;
-  document.getElementById('cq-results').style.display='none';
-  document.getElementById('cq-card').style.display='block';
-  show('s-cq');
-  cqLoad();
-}
-function cqLoad(){
-  if(cq.queue.length===0){cqShowResults();return;}
-  cq.cur=cq.queue.shift();cq.seen++;cq.selMain=null;cq.selSub=null;cq.answered=false;
-  document.getElementById('cq-seen').textContent=cq.seen;
-  document.getElementById('cq-bar').style.width=Math.min((cq.seen/cq.total)*100,100)+'%';
-  document.getElementById('cq-name').textContent=cq.cur.name;
-  document.getElementById('cq-hint').textContent=cq.cur.hint;
-  // reset
-  const v=document.getElementById('cq-val');
-  v.classList.remove('rdy');v.textContent='Check Answer';v.style.opacity='';v.style.pointerEvents='';
-  document.getElementById('cq-banner').className='res-banner';
-  document.getElementById('cq-next').className='btn-next-cq';
-  // main choices
-  const mains=shuffle([cq.cur.mainCat,...ALL_MAINS.filter(m=>m!==cq.cur.mainCat).slice(0,1)]);
-  const me=document.getElementById('cq-main');me.innerHTML='';
-  mains.forEach(opt=>{
-    const b=document.createElement('button');b.className='cbtn';
-    b.dataset.val=opt;b.innerHTML=`<span class="cico"></span>${opt}`;
-    b.onclick=()=>cqSelMain(opt,b);me.appendChild(b);
-  });
-  // sub choices (correct + 3 wrong from ALL_SUBS)
-  const subs=shuffle([cq.cur.subCat,...ALL_SUBS.filter(s=>s!==cq.cur.subCat).slice(0,3)]);
-  const se=document.getElementById('cq-sub');se.innerHTML='';
-  subs.forEach(opt=>{
-    const b=document.createElement('button');b.className='cbtn';
-    b.dataset.val=opt;b.innerHTML=`<span class="cico"></span>${opt}`;
-    b.onclick=()=>cqSelSub(opt,b);se.appendChild(b);
-  });
-}
-function cqSelMain(val,btn){
-  if(cq.answered)return;
-  cq.selMain=val;
-  document.querySelectorAll('#cq-main .cbtn').forEach(b=>{b.classList.remove('sel');b.querySelector('.cico').textContent='';});
-  btn.classList.add('sel');btn.querySelector('.cico').textContent='●';
-  cqCheckReady();
-}
-function cqSelSub(val,btn){
-  if(cq.answered)return;
-  cq.selSub=val;
-  document.querySelectorAll('#cq-sub .cbtn').forEach(b=>{b.classList.remove('sel');b.querySelector('.cico').textContent='';});
-  btn.classList.add('sel');btn.querySelector('.cico').textContent='●';
-  cqCheckReady();
-}
-function cqCheckReady(){
-  const v=document.getElementById('cq-val');
-  if(cq.selMain&&cq.selSub)v.classList.add('rdy');else v.classList.remove('rdy');
-}
-function cqValidate(){
-  if(cq.answered||!cq.selMain||!cq.selSub)return;
-  cq.answered=true;
-  const c=cq.cur,mOk=cq.selMain===c.mainCat,sOk=cq.selSub===c.subCat,both=mOk&&sOk;
-  if(both){cq.ok++;globalOk++;}else{cq.ko++;globalKo++;}
-  updScore();
-  // color mains
-  document.querySelectorAll('#cq-main .cbtn').forEach(b=>{
-    b.disabled=true;const v=b.dataset.val;
-    if(v===c.mainCat){b.classList.remove('sel');b.classList.add('ok');b.querySelector('.cico').textContent='✓';}
-    else if(v===cq.selMain&&!mOk){b.classList.remove('sel');b.classList.add('ko');b.querySelector('.cico').textContent='✗';}
-  });
-  // color subs
-  document.querySelectorAll('#cq-sub .cbtn').forEach(b=>{
-    b.disabled=true;const v=b.dataset.val;
-    if(v===c.subCat){b.classList.remove('sel');b.classList.add('ok');b.querySelector('.cico').textContent='✓';}
-    else if(v===cq.selSub&&!sOk){b.classList.remove('sel');b.classList.add('ko');b.querySelector('.cico').textContent='✗';}
-  });
-  // banner
-  const ban=document.getElementById('cq-banner');
-  if(both){ban.className='res-banner rb-ok on';document.getElementById('cq-bico').textContent='🎯';document.getElementById('cq-btxt').textContent='Perfect! Both correct.';document.getElementById('cq-bcorr').textContent=c.mainCat+' → '+c.subCat;}
-  else{ban.className='res-banner rb-ko on';document.getElementById('cq-bico').textContent='❌';document.getElementById('cq-btxt').textContent='Correct answer:';document.getElementById('cq-bcorr').textContent=c.mainCat+' → '+c.subCat;document.getElementById('cq-card').classList.add('shake');setTimeout(()=>document.getElementById('cq-card').classList.remove('shake'),300);}
-  const v=document.getElementById('cq-val');v.textContent=both?'✓ Correct!':'✗ Wrong';v.style.opacity='.5';v.style.pointerEvents='none';
-  document.getElementById('cq-next').className='btn-next-cq on';
-}
-function cqNext(){cqLoad();}
-function cqShowResults(){
-  document.getElementById('cq-card').style.display='none';
-  document.getElementById('cq-banner').className='res-banner';
-  document.getElementById('cq-next').className='btn-next-cq';
-  const pct=Math.round((cq.ok/cq.total)*100);
-  document.getElementById('cq-r-ok').textContent=cq.ok;
-  document.getElementById('cq-r-ko').textContent=cq.ko;
-  document.getElementById('cq-r-pct').textContent=pct+'%';
-  document.getElementById('cq-res-em').textContent=pct>=80?'🏆':pct>=60?'💪':'📚';
-  document.getElementById('cq-res-t').textContent=pct>=80?'Excellent!':pct>=60?'Good effort!':'Keep practicing!';
-  document.getElementById('cq-res-s').textContent='Score: '+cq.ok+' / '+cq.total+' ('+pct+'%)';
-  document.getElementById('cq-results').style.display='block';
-}
-function restartCQ(){startCQ('all','Category Quiz — All');}
+function render(){
 
-// ═══════════════════════════════════════════
-// MODE C: NAME QUIZ
-// ═══════════════════════════════════════════
-let nq={pool:[],queue:[],cur:null,seen:0,total:0,ok:0,ko:0,imgIdx:0,sel:null,answered:false};
+const container=document.getElementById("tasty-list");
 
-function startNQ(filter,title){
-  document.getElementById('cat-submenu').style.display='none';
-  document.getElementById('grp-submenu').style.display='none';
-  nq.pool=getPool(filter);
-  nq.queue=shuffle([...nq.pool]);
-  nq.seen=0;nq.total=nq.queue.length;nq.ok=0;nq.ko=0;nq.imgIdx=0;nq.answered=false;
-  document.getElementById('nq-title').textContent=title;
-  document.getElementById('nq-total').textContent=nq.total;
-  document.getElementById('nq-results').style.display='none';
-  document.getElementById('nq-qcard').style.display='block';
-  show('s-nq');
-  nqLoad();
+container.innerHTML="";
+
+tastyList.forEach((t,i)=>{
+
+container.innerHTML+=`
+
+<div class="tasty-card">
+
+<div class="tasty-header">
+Tasty #${i+1}
+<button class="remove-btn" onclick="removeTasty(${i})">Supprimer</button>
+</div>
+
+<select onchange="tastyList[${i}].type=this.value">
+<option>Type</option>
+<option>Sweet & Spicy</option>
+<option>Sweet Only</option>
+<option>Spicy Only</option>
+<option>Sans sauce</option>
+</select>
+
+<br><br>
+
+<select onchange="tastyList[${i}].drink=this.value">
+<option>Boisson</option>
+${drinks.map(d=>`<option>${d}</option>`)}
+</select>
+
+<div class="qty-row">
+<div>Extra sauce</div>
+<div>
+<button class="qty-btn" onclick="change(${i},'sauce',-1)">-</button>
+${t.sauce}
+<button class="qty-btn" onclick="change(${i},'sauce',1)">+</button>
+</div>
+</div>
+
+<div class="qty-row">
+<div>Extra poulet</div>
+<div>
+<button class="qty-btn" onclick="change(${i},'chicken',-1)">-</button>
+${t.chicken}
+<button class="qty-btn" onclick="change(${i},'chicken',1)">+</button>
+</div>
+</div>
+
+</div>
+
+`;
+
+});
+
+updateTotal();
+
 }
-function nqLoad(){
-  if(nq.queue.length===0){nqShowResults();return;}
-  nq.cur=nq.queue.shift();nq.seen++;nq.imgIdx=0;nq.sel=null;nq.answered=false;
-  document.getElementById('nq-seen').textContent=nq.seen;
-  document.getElementById('nq-bar').style.width=Math.min((nq.seen/nq.total)*100,100)+'%';
-  const c=nq.cur;
-  const badge=document.getElementById('nq-badge');
-  badge.textContent=c.cat==='dyschromies'?'Dyschromies':'White Lesions';
-  badge.className='pbadge '+(c.cat==='dyschromies'?'pb-d':'pb-w');
-  document.getElementById('nq-num').textContent='Case '+c.id+' / '+CASES.length;
-  document.getElementById('nq-hint').textContent=c.hint;
-  nqRenderImg();
-  // Build 4 choices: correct + 3 wrong from same category
-  const pool=nq.pool.filter(x=>x.id!==c.id);
-  const wrong=shuffle(pool).slice(0,3);
-  const choices=shuffle([c,...wrong]);
-  const el=document.getElementById('nq-choices');el.innerHTML='';
-  choices.forEach(opt=>{
-    const b=document.createElement('button');b.className='nbtn';
-    b.dataset.val=opt.id;b.innerHTML=`<span class="nico"></span>${opt.name}`;
-    b.onclick=()=>nqSel(opt.id,b);el.appendChild(b);
-  });
-  // reset
-  const v=document.getElementById('nq-val');
-  v.classList.remove('rdy');v.textContent='Check Answer';v.style.opacity='';v.style.pointerEvents='';
-  document.getElementById('nq-banner').className='nq-banner';
-  document.getElementById('nq-next').className='btn-next-nq';
+
+function change(i,type,val){
+
+tastyList[i][type]=Math.max(0,tastyList[i][type]+val);
+render();
+
 }
-function nqRenderImg(){
-  const c=nq.cur,frame=document.getElementById('nq-frame'),nav=document.getElementById('nq-pnav'),dots=document.getElementById('nq-dots'),imgs=c.images||[];
-  const src=imgs[nq.imgIdx]?'images/'+imgs[nq.imgIdx]:null;
-  if(src){const img=document.createElement('img');img.src=src;img.alt=c.name;img.onerror=function(){this.parentElement.innerHTML=`<div class="photo-ph" style="color:#ea580c"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg></div>`;};frame.innerHTML='';frame.appendChild(img);}
-  else{frame.innerHTML='<div class="photo-ph"><svg width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg></div>';}
-  if(imgs.length>1){nav.style.display='flex';dots.innerHTML=imgs.map((_,i)=>`<div class="pndot ${i===nq.imgIdx?'on':''}" onclick="nqGoImg(${i})"></div>`).join('');document.getElementById('nq-prev').disabled=nq.imgIdx===0;document.getElementById('nq-next-img').disabled=nq.imgIdx===imgs.length-1;}
-  else{nav.style.display='none';}
+
+function updateTotal(){
+
+let total=0;
+
+tastyList.forEach(t=>{
+
+total+=9;
+total+=t.sauce*0.5;
+total+=t.chicken*2;
+
+});
+
+const delivery=parseFloat(document.getElementById("delivery").value);
+
+total+=delivery;
+
+document.getElementById("total").innerText=total.toFixed(2)+"€";
+
 }
-function nqPrev(){if(nq.imgIdx>0){nq.imgIdx--;nqRenderImg();}}
-function nqNext(){const l=nq.cur.images?.length||1;if(nq.imgIdx<l-1){nq.imgIdx++;nqRenderImg();}}
-function nqGoImg(i){nq.imgIdx=i;nqRenderImg();}
-function nqSel(id,btn){
-  if(nq.answered)return;
-  nq.sel=id;
-  document.querySelectorAll('#nq-choices .nbtn').forEach(b=>{b.classList.remove('sel');b.querySelector('.nico').textContent='';});
-  btn.classList.add('sel');btn.querySelector('.nico').textContent='●';
-  const v=document.getElementById('nq-val');v.classList.add('rdy');
-}
-function nqValidate(){
-  if(nq.answered||!nq.sel)return;
-  nq.answered=true;
-  const c=nq.cur,isOk=parseInt(nq.sel)===c.id;
-  if(isOk){nq.ok++;globalOk++;}else{nq.ko++;globalKo++;}
-  updScore();
-  document.querySelectorAll('#nq-choices .nbtn').forEach(b=>{
-    b.disabled=true;const v=parseInt(b.dataset.val);
-    if(v===c.id){b.classList.remove('sel');b.classList.add('ok');b.querySelector('.nico').textContent='✓';}
-    else if(v===parseInt(nq.sel)&&!isOk){b.classList.remove('sel');b.classList.add('ko');b.querySelector('.nico').textContent='✗';}
-  });
-  const ban=document.getElementById('nq-banner');
-  if(isOk){ban.className='nq-banner nb-ok on';document.getElementById('nq-bico').textContent='🎯';document.getElementById('nq-btxt').textContent='Correct!';document.getElementById('nq-bcorr').textContent=c.name+' — '+c.sub;}
-  else{ban.className='nq-banner nb-ko on';document.getElementById('nq-bico').textContent='❌';document.getElementById('nq-btxt').textContent='Wrong — correct answer:';document.getElementById('nq-bcorr').textContent=c.name;}
-  const v=document.getElementById('nq-val');v.textContent=isOk?'✓ Correct!':'✗ Wrong';v.style.opacity='.5';v.style.pointerEvents='none';
-  document.getElementById('nq-next').className='btn-next-nq on';
-}
-function nqNextCase(){nqLoad();}
-function nqShowResults(){
-  document.getElementById('nq-qcard').style.display='none';
-  const pct=Math.round((nq.ok/nq.total)*100);
-  document.getElementById('nq-r-ok').textContent=nq.ok;
-  document.getElementById('nq-r-ko').textContent=nq.ko;
-  document.getElementById('nq-r-pct').textContent=pct+'%';
-  document.getElementById('nq-res-em').textContent=pct>=80?'🏆':pct>=60?'💪':'📚';
-  document.getElementById('nq-res-t').textContent=pct>=80?'Excellent!':pct>=60?'Good effort!':'Keep practicing!';
-  document.getElementById('nq-res-s').textContent='Score: '+nq.ok+' / '+nq.total+' ('+pct+'%)';
-  document.getElementById('nq-results').style.display='block';
-}
-function restartNQ(){startNQ('all','Name Quiz — All Cases');}
+
 </script>
+
 </body>
 </html>
+```
+
+---
+
+Version inclut :
+
+Interface blanche moderne
+Rose + Bleu ciel
+Tasty personnalisable
+Extras par tasty
+Design propre
+Mobile optimisé
