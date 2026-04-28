@@ -1,318 +1,945 @@
-# Street Crousty — Version Recodée Complète
-
-Copie-colle tout ce code dans ton fichier HTML.
-
-```html
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Street Crousty</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-
+<title>OralPath — Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #f0f2f5;
+  --surface: #ffffff;
+  --border: #e4e7ed;
+  --text: #0d1117;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.09);
+  --font: 'Outfit', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
 
-*{box-sizing:border-box;margin:0;padding:0}
+/* ── NAV ── */
+nav{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.nav-logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.nav-logo-text{font-size:17px;font-weight:700;color:var(--text);}
+.nav-tabs{display:flex;gap:4px;}
+.nav-tab{
+  padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;background:transparent;color:var(--text-muted);transition:all .15s;
+}
+.nav-tab.active{background:#0d1117;color:white;}
+.nav-tab:hover:not(.active){background:var(--bg);color:var(--text);}
+.nav-user{display:flex;align-items:center;gap:10px;}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;}
 
-:root{
---bg:#ffffff;
---surface:#f8fbff;
---surface2:#eef6ff;
---border:#e6edf5;
+/* ── SCREENS ── */
+.screen{display:none;}
+.screen.active{display:block;}
 
---accent:#ff8fb1;
---accent2:#9ad6ff;
+/* ── HOME ── */
+.home-wrap{max-width:1100px;margin:0 auto;padding:32px 24px;}
 
---text:#1a1a1a;
---muted:#7c8a9a;
-
---radius:14px;
+/* Hero cards */
+.hero-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px;}
+.hero-card{
+  border-radius:var(--radius);padding:28px 32px;cursor:pointer;
+  position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;
+  min-height:120px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.hero-card-random{background:linear-gradient(135deg,#1e2030 0%,#363a50 100%);}
+.hero-card-exam{background:linear-gradient(135deg,#9f3515 0%,#c0440a 100%);}
+.hero-card-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;width:fit-content;
+}
+.badge-random{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);}
+.badge-exam{background:rgba(255,200,50,.2);color:#fbbf24;}
+.hero-card-title{font-size:22px;font-weight:700;color:white;margin-bottom:4px;}
+.hero-card-sub{font-size:13px;color:rgba(255,255,255,.6);}
+.hero-card-arrow{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;color:white;font-size:18px;
 }
 
-body{
-background:var(--bg);
-font-family:'DM Sans',sans-serif;
-color:var(--text);
-padding-bottom:120px;
-}
+/* Section title */
+.section-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
 
-.hero{
-padding:30px 20px;
-text-align:center;
-border-bottom:1px solid var(--border);
-background:linear-gradient(160deg,#ffffff,#f5f9ff);
+/* Category row */
+.cat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.cat-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:20px 22px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:16px;
 }
+.cat-card:hover{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.08);}
+.cat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.cat-icon-dys{background:#fff3e0;}
+.cat-icon-white{background:#e8f4fd;}
+.cat-info{}
+.cat-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.cat-count{font-size:12px;color:var(--text-muted);}
 
-.logo{
-font-family:'Syne';
-font-size:32px;
-font-weight:800;
-color:var(--accent);
+/* Groups grid */
+.groups-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.group-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:18px 16px;cursor:pointer;transition:all .15s;text-align:center;
 }
+.group-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.group-card-emoji{font-size:28px;margin-bottom:8px;display:block;}
+.group-card-num{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.group-card-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;}
+.group-card-count{font-size:11px;color:var(--text-muted);margin-top:4px;}
 
-.section{
-padding:20px;
-border-bottom:1px solid var(--border);
+/* Group colors */
+.gc-1{border-top:3px solid #92400e;}
+.gc-2{border-top:3px solid #1f2937;}
+.gc-3{border-top:3px solid #1e40af;}
+.gc-4{border-top:3px solid #ca8a04;}
+.gc-5{border-top:3px solid #92400e;}
+.gc-6{border-top:3px solid #6b7280;}
+.gc-7{border-top:3px solid #6366f1;}
+.gc-8{border-top:3px solid #0891b2;}
+.gc-9{border-top:3px solid #7c3aed;}
+.gc-10{border-top:3px solid #dc2626;}
+.gc-11{border-top:3px solid #ea580c;}
+.gc-12{border-top:3px solid #0d9488;}
+
+/* ── TRAINER SCREEN ── */
+.trainer-wrap{max-width:1100px;margin:0 auto;padding:24px;}
+
+.trainer-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.back-btn{
+  width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--text-muted);transition:all .15s;
 }
+.back-btn:hover{border-color:var(--text);color:var(--text);}
+.trainer-title-block{}
+.trainer-session-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;}
+.trainer-session-name{font-size:20px;font-weight:700;color:var(--text);}
 
-.section-title{
-font-size:12px;
-letter-spacing:2px;
-color:var(--accent);
-margin-bottom:12px;
+.progress-wrap{margin-bottom:20px;}
+.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.progress-label{font-size:12px;color:var(--text-muted);font-weight:500;}
+.progress-frac{font-size:12px;font-weight:700;color:var(--text);}
+.progress-bar-bg{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.progress-bar-fg{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width .4s ease;}
+
+/* Flashcard layout */
+.flashcard-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+
+.card-left{display:flex;flex-direction:column;gap:14px;}
+
+.photo-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
 }
-
-input,select{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid var(--border);
-background:white;
+.photo-top{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.photo-badge{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  padding:3px 10px;border-radius:20px;
 }
+.pb-dys{background:#fff3e0;color:#ea580c;}
+.pb-white{background:#e8f4fd;color:#0891b2;}
+.pb-group{background:#f3f0ff;color:#6366f1;}
+.photo-case{font-size:11px;color:var(--text-dim);font-weight:600;}
 
-.tasty-card{
-background:var(--surface);
-border:1px solid var(--border);
-border-radius:14px;
-padding:15px;
-margin-bottom:15px;
+.photo-frame{
+  aspect-ratio:4/3;background:#f8f9fc;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;
 }
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-dim);}
+.photo-placeholder-text{font-size:12px;text-align:center;}
 
-.tasty-header{
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
-font-weight:600;
+.photo-nav{padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:10px;border-top:1px solid var(--border);}
+.pnav-btn{
+  width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);
+  background:var(--surface);cursor:pointer;font-size:14px;color:var(--text-muted);
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
 }
+.pnav-btn:hover:not(:disabled){border-color:#6366f1;color:#6366f1;}
+.pnav-btn:disabled{opacity:.3;cursor:not-allowed;}
+.pnav-dots{display:flex;gap:5px;}
+.pnav-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s;}
+.pnav-dot.active{background:#6366f1;transform:scale(1.3);}
 
-.remove-btn{
-background:#ffe6ef;
-border:none;
-padding:6px 10px;
-border-radius:8px;
-cursor:pointer;
+.hint-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;box-shadow:var(--shadow);border-left:3px solid #0891b2;
 }
+.hint-label{font-size:9px;font-weight:700;color:#0891b2;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.hint-text{font-size:12.5px;color:var(--text-muted);line-height:1.65;}
 
-.qty-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:10px;
+/* Right panel */
+.card-right{display:flex;flex-direction:column;gap:14px;}
+
+.action-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:36px 24px;display:flex;flex-direction:column;align-items:center;gap:20px;
+  box-shadow:var(--shadow);text-align:center;
 }
-
-.qty-btn{
-width:30px;
-height:30px;
-border-radius:50%;
-border:1px solid var(--border);
-background:white;
-cursor:pointer;
+.action-icon{width:60px;height:60px;border-radius:50%;background:#f3f0ff;border:1.5px solid #e0e7ff;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.action-title{font-size:16px;font-weight:700;color:var(--text);}
+.action-steps{display:flex;flex-direction:column;gap:8px;width:100%;max-width:260px;}
+.action-step{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;text-align:left;}
+.step-n{width:20px;height:20px;border-radius:50%;background:#6366f1;color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-t{font-size:12px;color:var(--text-muted);}
+.step-t strong{color:var(--text);}
+.btn-reveal{
+  width:100%;padding:13px;background:#0d1117;color:white;border:none;border-radius:10px;
+  font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;
+  letter-spacing:.02em;
 }
+.btn-reveal:hover{background:#1e2535;transform:translateY(-1px);}
 
-.total-bar{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:white;
-border-top:1px solid var(--border);
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+/* Correction card */
+.correction-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);display:none;
 }
+.correction-card.visible{display:block;}
 
-.order-btn{
-background:linear-gradient(90deg,var(--accent),var(--accent2));
-border:none;
-padding:14px 20px;
-border-radius:12px;
-color:white;
-font-weight:600;
-cursor:pointer;
+.diag-block{
+  padding:18px 20px;background:linear-gradient(135deg,#f3f0ff,#ede9fe);
+  border-bottom:1px solid #e0e7ff;
 }
+.diag-label{font-size:9px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.diag-name{font-size:22px;font-weight:700;color:#1e1b4b;line-height:1.2;font-family:var(--font-serif);}
+.diag-sub{font-size:12px;color:#6366f1;margin-top:3px;font-weight:500;}
+.diag-alias{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;background:#e0f2fe;color:#0891b2;border:1px solid #bae6fd;}
 
+.info-sections{padding:16px;}
+.info-section{margin-bottom:14px;}
+.info-section:last-child{margin-bottom:0;}
+.info-section-label{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:7px;display:flex;align-items:center;gap:5px;
+}
+.info-section-label::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;}
+.lbl-desc{color:#6366f1;}
+.lbl-tests{color:#0891b2;}
+.lbl-tx{color:#16a34a;}
+.lbl-diff{color:#9ca3af;}
+.info-list{list-style:none;display:flex;flex-direction:column;gap:3px;}
+.info-list li{font-size:12px;color:#374151;padding-left:12px;position:relative;line-height:1.6;}
+.info-list li::before{content:'–';position:absolute;left:0;color:var(--text-dim);}
+.diff-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;}
+.diff-pill{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);color:var(--text-muted);background:var(--bg);}
+
+/* Bottom actions */
+.trainer-actions{display:flex;gap:10px;margin-top:16px;}
+.btn-skip{flex:1;padding:12px;background:var(--surface);color:var(--text-muted);border:1.5px solid var(--border);border-radius:10px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;}
+.btn-skip:hover{border-color:var(--text);color:var(--text);}
+.btn-next{flex:2;padding:12px;background:#6366f1;color:white;border:none;border-radius:10px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn-next:hover{background:#4f46e5;}
+
+/* Scrollable correction */
+.correction-scroll{max-height:calc(100vh - 340px);overflow-y:auto;}
+.correction-scroll::-webkit-scrollbar{width:3px;}
+.correction-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .3s ease;}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero-cards,.flashcard-layout,.groups-grid{grid-template-columns:1fr;}
+  .cat-row{grid-template-columns:1fr;}
+  .groups-grid{grid-template-columns:repeat(2,1fr);}
+}
 </style>
 </head>
-
 <body>
 
-<div class="hero">
-<div class="logo">Street Crousty</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="goHome()">
+    <div class="nav-logo-icon">🦷</div>
+    <span class="nav-logo-text">OralPath</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="goHome()">🃏 Train</button>
+  </div>
+  <div class="nav-user">
+    <div class="nav-avatar">OP</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════ HOME ══════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="home-wrap">
+
+    <!-- Hero -->
+    <div class="hero-cards">
+      <div class="hero-card hero-card-random" onclick="startSession('all','All Cases — Random')">
+        <div>
+          <div class="hero-card-badge badge-random">🔀 Random</div>
+          <div class="hero-card-title">Random session</div>
+          <div class="hero-card-sub">All 37 pathologies mixed</div>
+        </div>
+        <div class="hero-card-arrow">→</div>
+      </div>
+      <div class="hero-card hero-card-exam" onclick="startSession('all','Full Training — All Cases')">
+        <div>
+          <div class="hero-card-badge badge-exam">🏆 Full</div>
+          <div class="hero-card-title">Full training</div>
+          <div class="hero-card-sub">37 cases · go through all of them</div>
+        </div>
+        <div class="hero-card-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- By category -->
+    <div class="section-title">By Category</div>
+    <div class="cat-row" style="margin-bottom:32px;">
+      <div class="cat-card" onclick="startSession('dyschromies','Dyschromies')">
+        <div class="cat-icon cat-icon-dys">🟤</div>
+        <div class="cat-info">
+          <div class="cat-name">Dyschromies</div>
+          <div class="cat-count">18 cases · pigmented lesions</div>
+        </div>
+      </div>
+      <div class="cat-card" onclick="startSession('white','White Lesions')">
+        <div class="cat-icon cat-icon-white">⬜</div>
+        <div class="cat-info">
+          <div class="cat-name">White Lesions</div>
+          <div class="cat-count">19 cases · keratotic & inflammatory</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- By differential group -->
+    <div class="section-title">By Differential Diagnosis Group</div>
+    <div class="groups-grid">
+      <div class="group-card gc-1" onclick="startSession('group1','Group 1 — Brown diffuse pigmentation')">
+        <span class="group-card-emoji">🟤</span>
+        <div class="group-card-num">Group 1</div>
+        <div class="group-card-name">Brown diffuse symmetric pigmentation</div>
+        <div class="group-card-count">4 cases</div>
+      </div>
+      <div class="group-card gc-2" onclick="startSession('group2','Group 2 — Isolated dark macules')">
+        <span class="group-card-emoji">⚫</span>
+        <div class="group-card-num">Group 2</div>
+        <div class="group-card-name">Isolated dark macules</div>
+        <div class="group-card-count">4 cases</div>
+      </div>
+      <div class="group-card gc-3" onclick="startSession('group3','Group 3 — Gingival line / metal')">
+        <span class="group-card-emoji">🔵</span>
+        <div class="group-card-num">Group 3</div>
+        <div class="group-card-name">Gingival line / metal poisoning</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-4" onclick="startSession('group4','Group 4 — Yellow pigmentation')">
+        <span class="group-card-emoji">🟡</span>
+        <div class="group-card-num">Group 4</div>
+        <div class="group-card-name">Yellow pigmentation</div>
+        <div class="group-card-count">2 cases</div>
+      </div>
+      <div class="group-card gc-5" onclick="startSession('group5','Group 5 — Café-au-lait spots')">
+        <span class="group-card-emoji">☕</span>
+        <div class="group-card-num">Group 5</div>
+        <div class="group-card-name">Café-au-lait + multiple lesions</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-6" onclick="startSession('group6','Group 6 — Normal variants (white)')">
+        <span class="group-card-emoji">⬜</span>
+        <div class="group-card-num">Group 6</div>
+        <div class="group-card-name">White — normal variants</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-7" onclick="startSession('group7','Group 7 — Hereditary white plaques')">
+        <span class="group-card-emoji">🧬</span>
+        <div class="group-card-num">Group 7</div>
+        <div class="group-card-name">Hereditary white plaques</div>
+        <div class="group-card-count">2 cases</div>
+      </div>
+      <div class="group-card gc-8" onclick="startSession('group8','Group 8 — Tobacco white lesions')">
+        <span class="group-card-emoji">🚬</span>
+        <div class="group-card-num">Group 8</div>
+        <div class="group-card-name">Tobacco-related white lesions</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-9" onclick="startSession('group9','Group 9 — OLP: 3 forms')">
+        <span class="group-card-emoji">🔮</span>
+        <div class="group-card-num">Group 9</div>
+        <div class="group-card-name">OLP — 3 forms</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-10" onclick="startSession('group10','Group 10 — Leukoplasia: 3 forms')">
+        <span class="group-card-emoji">🔴</span>
+        <div class="group-card-num">Group 10</div>
+        <div class="group-card-name">Leukoplasia — 3 forms</div>
+        <div class="group-card-count">3 cases</div>
+      </div>
+      <div class="group-card gc-11" onclick="startSession('group11','Group 11 — Exophytic lesions')">
+        <span class="group-card-emoji">🥦</span>
+        <div class="group-card-num">Group 11</div>
+        <div class="group-card-name">Exophytic / cauliflower lesions</div>
+        <div class="group-card-count">2 cases</div>
+      </div>
+      <div class="group-card gc-12" onclick="startSession('group12','Group 12 — OLP vs Lichenoid')">
+        <span class="group-card-emoji">⚖️</span>
+        <div class="group-card-num">Group 12</div>
+        <div class="group-card-name">OLP vs Lichenoid Reactions</div>
+        <div class="group-card-count">2 cases</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="section">
-<div class="section-title">Informations</div>
-<input placeholder="Nom" id="name"><br><br>
-<input placeholder="Téléphone" id="phone">
-</div>
+<!-- ══════════════════════════════ TRAINER ══════════════════════════════ -->
+<div class="screen" id="screen-trainer">
+  <div class="trainer-wrap">
 
-<div class="section">
-<div class="section-title">Vos Tasty</div>
+    <div class="trainer-header">
+      <button class="back-btn" onclick="goHome()">←</button>
+      <div class="trainer-title-block">
+        <div class="trainer-session-label">Training session</div>
+        <div class="trainer-session-name" id="session-name">—</div>
+      </div>
+    </div>
 
-<div id="tasty-list"></div>
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span class="progress-label">Progress</span>
+        <span class="progress-frac"><span id="prog-seen">0</span> / <span id="prog-total">0</span></span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fg" id="prog-bar" style="width:0%"></div>
+      </div>
+    </div>
 
-<button class="order-btn" style="width:100%;margin-top:10px" onclick="addTasty()">
-+ Ajouter un Tasty
-</button>
+    <div class="flashcard-layout">
+      <!-- LEFT -->
+      <div class="card-left">
+        <div class="photo-card">
+          <div class="photo-top">
+            <div class="photo-badge" id="photo-badge">—</div>
+            <div class="photo-case" id="photo-case">—</div>
+          </div>
+          <div class="photo-frame" id="photo-frame">
+            <div class="photo-placeholder">
+              <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg>
+              <div class="photo-placeholder-text">Clinical photo</div>
+            </div>
+          </div>
+          <div class="photo-nav" id="photo-nav" style="display:none">
+            <button class="pnav-btn" id="pnav-prev" onclick="prevImg()">‹</button>
+            <div class="pnav-dots" id="pnav-dots"></div>
+            <button class="pnav-btn" id="pnav-next" onclick="nextImg()">›</button>
+          </div>
+        </div>
 
-</div>
+        <div class="hint-card">
+          <div class="hint-label">📍 Clinical context</div>
+          <div class="hint-text" id="hint-text">—</div>
+        </div>
+      </div>
 
-<div class="section">
-<div class="section-title">Livraison</div>
-<select id="delivery" onchange="updateTotal()">
-<option value="0">Retrait gratuit</option>
-<option value="2.5">Livraison +2.50€</option>
-</select>
-</div>
+      <!-- RIGHT -->
+      <div class="card-right">
+        <!-- Action state -->
+        <div class="action-card" id="action-card">
+          <div class="action-icon">📋</div>
+          <div class="action-title">Write your answer first</div>
+          <div class="action-steps">
+            <div class="action-step"><div class="step-n">1</div><div class="step-t">Examine the photo carefully</div></div>
+            <div class="action-step"><div class="step-n">2</div><div class="step-t">Write on paper: <strong>diagnosis, description, tests, treatment</strong></div></div>
+            <div class="action-step"><div class="step-n">3</div><div class="step-t">Reveal the correction below</div></div>
+          </div>
+          <button class="btn-reveal" onclick="showCorrection()">See Correction →</button>
+        </div>
 
-<div class="total-bar">
-<div>
-<div>Total</div>
-<div id="total">0€</div>
-</div>
+        <!-- Correction -->
+        <div class="correction-card" id="correction-card">
+          <div class="diag-block">
+            <div class="diag-label">✓ Final Diagnosis</div>
+            <div class="diag-name" id="diag-name">—</div>
+            <div class="diag-sub" id="diag-sub"></div>
+            <div class="diag-alias" id="diag-alias" style="display:none"></div>
+          </div>
+          <div class="correction-scroll">
+            <div class="info-sections">
+              <div class="info-section">
+                <div class="info-section-label lbl-desc">Description</div>
+                <ul class="info-list" id="info-desc"></ul>
+              </div>
+              <div class="info-section">
+                <div class="info-section-label lbl-tests">Complementary Tests</div>
+                <ul class="info-list" id="info-tests"></ul>
+              </div>
+              <div class="info-section">
+                <div class="info-section-label lbl-tx">Treatment</div>
+                <ul class="info-list" id="info-tx"></ul>
+              </div>
+              <div class="info-section" id="diff-section" style="display:none">
+                <div class="info-section-label lbl-diff">Differential Diagnosis</div>
+                <div class="diff-pills" id="info-diff"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<button class="order-btn">
-Commander
-</button>
+        <div class="trainer-actions">
+          <button class="btn-skip" onclick="skipCase()">Skip →</button>
+          <button class="btn-next" onclick="nextCase()">Next case →</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+// ═══════════════════════════════════════════
+// DATABASE
+// ═══════════════════════════════════════════
+const CASES = [
+  {id:1,category:'dyschromies',groups:['group3'],name:'Exogenous Stains',sub:'Chlorhexidine / Tobacco / Coffee / Tea',alias:null,
+  images:['1-exogenous-stains.jpg'],
+  hint:'Dark tongue coating or tooth discoloration. Note the location and removability.',
+  description:['Chlorhexidine, tobacco, coffee/tea, mate, candies, chewing gums','Food stains but do not last','Possible metallic taste','Benign — no mucosal alteration'],
+  tests:['Clinical inspection only'],
+  treatment:['Eliminate the causative substance','Clean tongue','Increase oral hygiene','Avoid brushing the symphysis of the tongue'],
+  differential:['Hairy tongue','Melanoplakia','Drug-induced pigmentation']},
 
-const drinks=[
-"Coca",
-"Ice Tea",
-"Fanta",
-"Sprite",
-"Oasis",
-"Eau"
+  {id:2,category:'dyschromies',groups:['group2'],name:'Amalgam Tattoo',sub:'Exogenous / Mucosal tattoo',alias:null,
+  images:['2-amalgam-tattoo.jpg'],
+  hint:'Small flat bluish-black macule on gingiva near a tooth restoration.',
+  description:['Benign mucosal trauma','Macule (flat), bluish/black in color','Fuzzy edges','Located on gingiva or alveolar mucosa','Visible on radiographs as amalgam particles','Permanent but benign'],
+  tests:['Clinical inspection','Anamnesis (history of dental restoration)','X-ray +++ (can see amalgam particles)','Diascopy +++'],
+  treatment:['ABCDE follow-up','No treatment needed if benign'],
+  differential:['Nevus','Melanotic macule',"Smoker's melanosis",'Melanoma']},
+
+  {id:3,category:'dyschromies',groups:['group3'],name:'Lead Poisoning',sub:"Metal poisoning — Plumbism / Burton's line",alias:null,
+  images:['3-lead-poisoning.jpg'],
+  hint:"History of occupational exposure. Dark line at the gingival margin.",
+  description:['Greyish macules on oral mucosa',"Burton's line: dark line between teeth and gingiva",'Related to working conditions','Accompanied by erythematous macules and alopecia'],
+  tests:['Blood tests: elevated lead levels'],
+  treatment:['Remove the source of contamination','Chelation: Dimercaprol (severe) or Calcium disodium EDTA (moderate)'],
+  differential:['Bismuth poisoning','Normal pigmentation','Melanoplakia']},
+
+  {id:4,category:'dyschromies',groups:['group3'],name:'Bismuth Poisoning',sub:'Metal poisoning — pharmaceutical / industrial',alias:null,
+  images:['4-bismuth-poisoning.jpg'],
+  hint:'Bluish-black coloration on gums and tongue. Patient on bismuth-containing preparations.',
+  description:['Bluish color on gums, tongue, jugal mucosa','Ulcers when severe','Related to pharmaceutical preparations','Erythema, ulcerations, xerostomia (dryness)'],
+  tests:['Blood tests: elevated bismuth levels'],
+  treatment:['Remove the source of contamination'],
+  differential:['Lead poisoning','Drug-induced pigmentation','Melanoplakia']},
+
+  {id:5,category:'dyschromies',groups:['group3'],name:'Arsenic Poisoning',sub:'Metal poisoning — most used historical poison',alias:null,
+  images:['5-arsenic-poisoning.jpg'],
+  hint:'Multiple systemic symptoms, black foot disease, oral ulcers. Almond smell noted.',
+  description:['Erythema, ulcerations, xerostomia','Mees lines (horizontal lines on nails)','No oral flavor but almond smell','Black foot disease, respiratory, neurological diseases, cancers'],
+  tests:['Blood tests: elevated arsenic levels'],
+  treatment:['Antidote administration'],
+  differential:['Lead poisoning','Bismuth poisoning','Drug-induced pigmentation']},
+
+  {id:6,category:'dyschromies',groups:['group4'],name:'Carotenemia',sub:'Pigmentation by carotenes — variation of normality',alias:null,
+  images:['6-carotenemia.jpg'],
+  hint:'Yellowish pigmentation of soft palate and palms/soles. Eyes NOT affected.',
+  description:['Yellow pigmentation on soft palate','Yellow pigmentation on palms and soles','Eyes NOT affected (contrast with jaundice)','Variation of normality'],
+  tests:['No complementary tests: variation of normality'],
+  treatment:['No treatment or dietary adjustment'],
+  differential:['Jaundice (eyes affected)','Drug-induced pigmentation']},
+
+  {id:7,category:'dyschromies',groups:['group1'],name:'Melanoplakia',sub:'Melanic pigmentation — endogenous',alias:null,
+  images:['7-melanoplakia.jpg'],
+  hint:'Dark brown pigmentation of gums, jugal mucosa, and lips. Patient of ethnic background.',
+  description:['Dark brown gums, jugal mucosa, and lips','Increased melanin in melanocytes','Normal finding in darkly pigmented individuals','Flat, permanent, not removable, diffuse, symmetrical'],
+  tests:['No complementary tests: variation of normality'],
+  treatment:['No treatment'],
+  differential:["Addison's disease",'Drug-induced pigmentation','Amalgam tattoo','Melanotic macule']},
+
+  {id:8,category:'dyschromies',groups:['group1'],name:'Melasma',sub:'Melanic pigmentation — hormonal / pregnancy',alias:null,
+  images:['8-melasma.jpg'],
+  hint:'Darkening of facial skin in a pregnant woman. Symmetrical distribution.',
+  description:['Darkening of facial skin','Brown pigmentation of skin and mucous membranes','Frequent during pregnancy','Diffuse, symmetrical, patches >1cm, irregular borders'],
+  tests:['Pregnancy test / history'],
+  treatment:['No treatment — resolves postpartum','Cryotherapy or laser for persistent cases'],
+  differential:["Addison's disease",'Drug-induced pigmentation','Melanoplakia']},
+
+  {id:9,category:'dyschromies',groups:['group1'],name:"Addison's Disease",sub:'Adrenal insufficiency — endocrinopathic pigmentation',alias:null,
+  images:['9-addisons-disease.jpg','9-addisons-disease-2.jpg'],
+  hint:'Brown pigmentation of oral mucosa + hypotension, fatigue. Check cortisol levels.',
+  description:['Brown pigmentation of skin and mucous membranes','Cortisol and aldosterone are missing','Rare long-term endocrine disorder','Causes: HIV, tuberculosis, tumors','Patches, diffuse brown, multifocal, associated with hypotension'],
+  tests:['Blood tests: low cortisol and high ACTH',"Inverse: Cushing's syndrome = too much cortisol"],
+  treatment:['Hydrocortisone 20–30 mg/day depending on patient weight'],
+  differential:['Melasma','Melanoplakia','Peutz-Jeghers syndrome','Drug-induced pigmentation']},
+
+  {id:10,category:'dyschromies',groups:[],name:'Acanthosis Nigricans',sub:'Metabolic — paraneoplastic syndrome',alias:null,
+  images:['10-acanthosis-nigricans.jpg'],
+  hint:'Dark velvety skin in skin folds. Associated with obesity, diabetes, or malignancy.',
+  description:['Dark, thick, velvety skin in flexible areas and folds','Associated with obesity, diabetes, oral contraception','Diffuse, skin folds, poorly defined borders, can be paraneoplastic'],
+  tests:['Family history','May be caused by trauma or medication'],
+  treatment:['No treatment','Treat underlying cause: antibiotics, chemotherapy, corticosteroids'],
+  differential:['Drug-induced pigmentation','Melanoplakia',"Addison's disease"]},
+
+  {id:11,category:'dyschromies',groups:[],name:'Petechiae / Ecchymosis',sub:'Hemoblobinic — vascular / traumatic',alias:null,
+  images:['11-petechiae-ecchymosis.jpg','11-petechiae-ecchymosis-2.jpg','11-petechiae-ecchymosis-3.jpg'],
+  hint:'Small flat reddish/purple spots. Petechia <2mm, Ecchymosis >2mm. History of trauma.',
+  description:['Small flat reddish/purple lesions','Petechia: <2mm — Ecchymosis: >2mm','Related to previous trauma','Reabsorbs over 10–15 days','Can be associated with coagulation disorders'],
+  tests:['Platelet levels','May be caused by trauma or medication'],
+  treatment:['No specific treatment — self-resolving'],
+  differential:['Drug-induced pigmentation','Telangiectasia','Melanotic macule']},
+
+  {id:12,category:'dyschromies',groups:['group4'],name:'Jaundice',sub:'Hemoblobinic — elevated bilirubin',alias:null,
+  images:['12-jaundice.jpg'],
+  hint:'Yellow coloration of ALL skin AND eyes/sclera. Elevated bilirubin. Check liver function.',
+  description:['All skin is yellow','Bilirubin: >2.5 mg/dL in tissues (normal: 0.3–1 mg/dL)','Sclera (eyes) also affected — key differentiator from carotenemia'],
+  tests:['Blood tests — liver function panel','Bilirubin sample'],
+  treatment:['Treat underlying hepatic/biliary cause'],
+  differential:['Carotenemia (eyes NOT affected)','Drug-induced pigmentation']},
+
+  {id:13,category:'dyschromies',groups:['group1'],name:'Hemochromatosis',sub:'Metabolic — iron overload',alias:null,
+  images:['13-hemochromatosis.jpg'],
+  hint:'Dark brown pigmentation of skin and mucosa. Iron accumulation in internal organs.',
+  description:['Dark brown pigmentation on skin and mucous membranes','Iron accumulation in internal organs','Genetic: autosomal dominant from birth','Café-au-lait spots possible'],
+  tests:['Blood tests: elevated iron levels'],
+  treatment:['Primary (inherited): Phlebotomy to stimulate erythropoiesis','If anemia or contraindication: iron chelators'],
+  differential:["Addison's disease",'Drug-induced pigmentation','Melanoplakia']},
+
+  {id:14,category:'dyschromies',groups:['group5'],name:'Neurofibromatosis',sub:'Dysplastic process — Von Recklinghausen',alias:null,
+  images:['14-neurofibromatosis.jpg'],
+  hint:'Café-au-lait spots + neurofibromas on skin and oral cavity from birth.',
+  description:['From birth: autosomal dominant','Neurofibromas in skin and oral cavity','Café-au-lait spots','Multiple lesions, diffuse'],
+  tests:['Clinical diagnosis','Family history'],
+  treatment:['No treatment','Surgery to remove tumors if symptomatic'],
+  differential:['Peutz-Jeghers syndrome','McCune-Albright syndrome','Melanoplakia']},
+
+  {id:15,category:'dyschromies',groups:['group5'],name:'Peutz-Jeghers Syndrome',sub:'Dysplastic process — GI polyposis + pigmentation',alias:null,
+  images:['15-peutz-jeghers.jpg','15-peutz-jeghers-2.jpg'],
+  hint:'Brown/black spots 4–6mm on lips and mucosa. Family history of GI polyps.',
+  description:['Brown/black spots, 4–6mm','From birth: autosomal dominant','Spots on skin and mucous membranes','Associated with GI polyposis'],
+  tests:['Colonoscopy','Family history'],
+  treatment:['No treatment for the spots','Monitor GI polyps'],
+  differential:['Melanoplakia','Melanotic macule','McCune-Albright syndrome','Nevus']},
+
+  {id:16,category:'dyschromies',groups:['group5'],name:'McCune-Albright Syndrome',sub:'Dysplastic process — polyostotic fibrous dysplasia',alias:null,
+  images:['16-mccune-albright.jpg'],
+  hint:'Café-au-lait spots + early puberty + bone abnormalities in a young girl.',
+  description:['Café-au-lait spots on skin and mucous membranes','Polyostotic fibrous dysplasia (bones)','Hormonal changes and altered puberty'],
+  tests:['Early puberty signs','Bone imaging'],
+  treatment:['Hormone therapy for early puberty','No treatment for the spots'],
+  differential:['Neurofibromatosis','Peutz-Jeghers syndrome','Melanoplakia']},
+
+  {id:17,category:'dyschromies',groups:['group2'],name:'Oral Nevus',sub:'Benign tumor — melanocytic',alias:null,
+  images:['17-oral-nevus.jpg'],
+  hint:'Small, well-defined, isolated blue/brown flat macule on lip, gum, or palate.',
+  description:['Blue/black/brown, flat or slightly elevated, homogeneous','Small, well defined, isolated (single lesion)','Lip, gum, palate','Congenital or acquired benign tumor, more frequent in women','Types: Junctional, Compound, Intramucosal, Blue'],
+  tests:['Clinical inspection','Histological inspection if atypical','ABCDE assessment','Gauze test'],
+  treatment:['ABCDE follow-up','Surgical excision only if malignant or for esthetics'],
+  differential:['Melanoma','Melanotic macule','Amalgam tattoo']},
+
+  {id:18,category:'dyschromies',groups:['group2'],name:'Oral Melanoma',sub:'Malignant tumor — EARLY DIAGNOSIS CRITICAL',alias:null,
+  images:['18-oral-melanoma.jpg'],
+  hint:'Irregular pigmented lesion on palate or gingiva. Brown/black. ABCDE positive.',
+  description:['Malignant tumor — uncommon in the mouth','Pigmented lesion in palate or gingiva, brown','EARLY DIAGNOSIS CRITICAL — bad prognosis if late','Lentiginous melanoma: most frequent type in mouth'],
+  tests:['ABCDE assessment','Gauze test','Histological inspection — BIOPSY','Refer to hospital immediately'],
+  treatment:['Refer to hospital for surgery','Wide surgical excision'],
+  differential:['Nevus','Amalgam tattoo','Melanotic macule',"Addison's disease"]},
+
+  {id:19,category:'white',groups:['group6'],name:'Alba Line (Linea Alba)',sub:'Variation from normal — no treatment needed',alias:null,
+  images:['19-alba-line.jpg'],
+  hint:'White horizontal line on buccal mucosa at the occlusal level. Bilateral.',
+  description:['White line in buccal mucosa at occlusal level','Unilateral or bilateral','Excess of keratin due to occlusal friction','Soft, asymptomatic, opalescent, well defined'],
+  tests:['No complementary test: variation of normality'],
+  treatment:['No treatment — physiological, not pathological'],
+  differential:['Leukoplakia','Lichen planus','Frictional keratosis']},
+
+  {id:20,category:'white',groups:['group6'],name:'Leukoedema',sub:'Variation from normal — disappears on stretching',alias:null,
+  images:['20-leukoedema.jpg'],
+  hint:'White opalescent lesion covering entire buccal mucosa. KEY: disappears on stretching.',
+  description:['White lesion covering entire buccal mucosa','Can be on lateral sides of tongue, bilateral','KEY: disappears when mucosa is pulled/stretched','Smooth, soft, not scrapable'],
+  tests:['Stretch test: lesion disappears → confirmed'],
+  treatment:['No treatment — physiological, not pathological'],
+  differential:['White sponge nevus','Leukoplakia','Candidiasis','Alba line']},
+
+  {id:21,category:'white',groups:['group6'],name:'Fordyce Granules',sub:'Variation from normal — ectopic sebaceous glands',alias:null,
+  images:['21-fordyce-granules.jpg'],
+  hint:'Small yellowish-white granules on buccal and labial mucosa. Bilateral, asymptomatic.',
+  description:['Yellowish-white granules on buccal and labial mucosa','Sebaceous glands more superficial than normal','Usually bilateral, rough surface, asymptomatic'],
+  tests:['No complementary test: variation of normality'],
+  treatment:['No treatment — physiological, not pathological'],
+  differential:['Candidiasis','White sponge nevus','Leukoplakia']},
+
+  {id:22,category:'white',groups:['group7'],name:'White Sponge Nevus',sub:"Hereditary — autosomal dominant, benign",alias:"= Cannon's Disease",
+  images:['22-white-sponge-nevus.jpg'],
+  hint:'Bilateral thickened folded white plaques on buccal mucosa since childhood. Family history positive.',
+  description:['Bilateral, buccal mucosa (also lateral tongue)','No function altered','Inherited — autosomal dominant, appears at puberty',"Witkop's intraepithelial dyskeratosis",'Homogeneous plate white lesion with folds','Conjunctival involvement of the eye possible','NO spongiosis — only hyperkeratosis'],
+  tests:['Clinical history and inspection','Biopsy to differentiate from leukoedema','Microscopy: only hyperkeratosis, NO spongiosis'],
+  treatment:['NO TREATMENT — never malignant'],
+  differential:['Leukoedema','Leukoplakia','Candidiasis','Lichen planus']},
+
+  {id:23,category:'white',groups:['group7'],name:'Congenital Dyskeratosis',sub:'Hereditary — autosomal dominant',alias:null,
+  images:['23-congenital-dyskeratosis.jpg'],
+  hint:'Bilateral white lesions on lips, buccal mucosa, and lingual margins. Autosomal dominant.',
+  description:['On lips, buccal mucosa and lingual margins','Inflammatory reaction, autosomal dominant','Bilateral, white plaque with folds'],
+  tests:['Biopsy if atypical presentation'],
+  treatment:['No treatment'],
+  differential:['White sponge nevus','Leukoplakia','Lichen planus']},
+
+  {id:24,category:'white',groups:[],name:'Frictional Keratosis',sub:'Reactive lesion — trauma-induced',alias:null,
+  images:['24-frictional-keratosis.jpg'],
+  hint:'White lesion on buccal mucosa at occlusal level beyond the alba line. Chronic trauma.',
+  description:['Protective reaction against trauma','Buccal mucosa at occlusal level beyond the alba line','White lesion; if more severe: erosions in epithelium','Does NOT come off, increased keratin formation'],
+  tests:['Scratch test: does not come off','Microscopy: increased keratin formation','Biopsy if doubt'],
+  treatment:['Stop the stimulus / friction'],
+  differential:['Alba line','Leukoplakia','Candidiasis','Lichen planus']},
+
+  {id:25,category:'white',groups:[],name:'Morsicatio Buccarum',sub:'Reactive lesion — chronic cheek biting',alias:null,
+  images:['25-morsicatio-buccarum.jpg'],
+  hint:'Irregular white shredded appearance on buccal mucosa. Patient admits to cheek biting.',
+  description:['Chronic cheek biting habit','Buccal mucosa at occlusal level','White lesion, rough surface, irregular/shredded appearance','Erosions if more severe'],
+  tests:['Habits — sucking/biting history','Biopsy if doubt'],
+  treatment:['No treatment — stop the habit'],
+  differential:['Leukoplakia','Lichen planus','Frictional keratosis','Alba line']},
+
+  {id:26,category:'white',groups:['group8'],name:'Cigarette Keratosis',sub:'Reactive lesion — tobacco (no filter)',alias:null,
+  images:['26-cigarette-keratosis.jpg'],
+  hint:'White cracked lesion at cigarette placement on lip. Only in smokers without filter.',
+  description:['People who smoke without filter or marijuana','Related to lip closure and cigarette placement','Vermillion borders NOT involved','Cracked white lesion'],
+  tests:['Can only be on smokers'],
+  treatment:['Etiological treatment: quit tobacco'],
+  differential:['Leukoplakia','Lichen planus','Frictional keratosis']},
+
+  {id:27,category:'white',groups:['group8'],name:'Nicotinic Palatitis',sub:'Reactive lesion — tobacco on palate',alias:null,
+  images:['27-nicotinic-palatitis.jpg'],
+  hint:'Cracked white lesion on palate with central red stippling (inflamed salivary gland openings).',
+  description:['Cracked white lesion on palate with central reddish stippling','Asymptomatic — only in smokers','White palate with red dots (salivary gland openings)'],
+  tests:['Can only be on smokers'],
+  treatment:['Etiological treatment: quit tobacco'],
+  differential:['Leukoplakia','Lichen planus']},
+
+  {id:28,category:'white',groups:['group8'],name:"Snuff Dipper's Patch",sub:'Reactive lesion — smokeless tobacco',alias:null,
+  images:['28-snuff-dippers-patch.jpg'],
+  hint:'White lesion at site of persistent smokeless tobacco placement (e.g. buccal vestibule).',
+  description:['Persistent use of unburned tobacco (snuff)','Affected area = where tobacco is placed','White lesion, location-specific'],
+  tests:['Can only be on smokeless tobacco users'],
+  treatment:['Etiological treatment: quit tobacco'],
+  differential:['Leukoplakia','Verrucous carcinoma','Frictional keratosis']},
+
+  {id:29,category:'white',groups:['group11'],name:'Verrucous Carcinoma of Ackerman',sub:'Potentially malignant — smokeless tobacco',alias:null,
+  images:['29-verrucous-carcinoma.jpg'],
+  hint:'Warty, cauliflower-like exophytic white-red mass. Firm to palpation. Men >60y.',
+  description:['Warty, exophytic white-red mass, firm to palpation','Cauliflower-like tumor','Long-term smokeless tobacco at placement site','Men > 60 years old'],
+  tests:['Incisional biopsy','Remove with extensive borders'],
+  treatment:['Wide surgical excision'],
+  differential:['Leukoplakia','Squamous cell carcinoma','Exophytic leukoplakia']},
+
+  {id:30,category:'white',groups:[],name:'Actinic Cheilitis',sub:'Potentially malignant — sun exposure on lip',alias:null,
+  images:['30-actinic-cheilitis.jpg'],
+  hint:'Edematous, painful, enlarged reddish lip beginning to peel and scar. Sun exposure.',
+  description:['Caused by UV / sun exposure','Edematous, painful, enlarged, reddish lip','Begins to peel, scarring develops'],
+  tests:["Biopsy if doesn't disappear in 2–3 weeks: may be cancer"],
+  treatment:['Avoid sun, protection and hydration','Excellent prognosis if agent removed early'],
+  differential:['Leukoplakia','Lichen planus (erosive)','Contact cheilitis']},
+
+  {id:31,category:'white',groups:['group12'],name:'Lichenoid Reactions',sub:'Potentially malignant — hypersensitivity',alias:null,
+  images:['31-lichenoid-reactions.jpg'],
+  hint:'UNILATERAL white lesion adjacent to a dental restoration or medication. Allergy history.',
+  description:['Hypersensitivity to restorative or orthodontic treatments','More frequent in women after 30yo','Located adjacent to causing material (usually cheek)','Mild: asymptomatic — Erosive: pain','UNILATERAL — key differentiator from OLP'],
+  tests:['Incisional biopsy','Clinically similar to OLP (even histologically)'],
+  treatment:['Remove the causing agent','Excellent prognosis: healing in weeks after removal'],
+  differential:['OLP (bilateral vs unilateral)','Leukoplakia','Candidiasis']},
+
+  {id:32,category:'white',groups:['group9','group12'],name:'Reticular Oral Lichen Planus',sub:'OLP — most common, asymptomatic variant',alias:null,
+  images:['32-reticular-olp.jpg'],
+  hint:'Bilateral whitish reticule (Wickham striae) on buccal mucosa. Asymptomatic. Does not scrape off.',
+  description:['Bilateral whitish reticule (network) — Wickham striae','Normally asymptomatic, does NOT come off','Desquamative gingivitis possible','Chronic inflammatory, autoimmune, unknown etiology, usually >40yo'],
+  tests:['Incisional biopsy — malignization risk 4%','Diagnosis by excluding all other pathologies then biopsy','Risk factors: F, toxic habits, hepatitis C, lingual/erosive location'],
+  treatment:['Asymptomatic: follow-up every 6 months','Symptomatic: topical corticoids → Triamcinolone 0.1–0.5% or Clobetasol 0.025–0.05%','Week 1: 3×/day → Week 2: 2×/day → Week 3: 1×/day → Week 4: 1/2×/day','Systemic corticoids if needed: Prednisone 1–1.5mg/kg/day','No response: immunosuppressants → surgery/laser'],
+  differential:['Lichenoid reactions (unilateral)','Leukoplakia','Candidiasis','White sponge nevus']},
+
+  {id:33,category:'white',groups:['group9'],name:'Atrophic / Erosive OLP',sub:'OLP — painful erosive variant',alias:null,
+  images:['33-atrophic-erosive-olp.jpg','33-atrophic-erosive-olp-2.jpg'],
+  hint:'Pinkish erythematous area, thinned epithelium, blood vessels visible. Painful burning on tongue/gums.',
+  description:['Pinkish, erythematous area','Thinning of epithelium revealing small blood vessels','Tongue, buccal mucosa and gums','Painful: from burning sensation to intense pain','Bilateral, desquamative gingivitis'],
+  tests:['Incisional biopsy — malignization risk 4%','Wickham striae may be visible on edges'],
+  treatment:['Corticoids + follow-up','Topical corticosteroids preferred','Systemic if topical fails','No response: immunosuppressants, surgery, laser'],
+  differential:['Reticular OLP','Candidiasis','Leukoplakia','Lichenoid reactions','Pemphigus']},
+
+  {id:34,category:'white',groups:['group9'],name:'Plaque-like OLP',sub:'OLP — raised white plaque variant',alias:null,
+  images:['34-plaque-like-olp.jpg','34-plaque-like-olp-2.jpg'],
+  hint:'Raised white lesions, granular and rough. Bilateral on tongue and gums. Resistant to treatments.',
+  description:['On tongue and gums — less frequent form','Raised white lesions, granular and rough texture','Does NOT come off when scraping','Resistant to treatments'],
+  tests:['Incisional biopsy — malignization risk 4%'],
+  treatment:['Corticoids (topical and/or systemic)','Surgery or laser if no response'],
+  differential:['Homogeneous leukoplakia','Candidiasis','Reticular OLP']},
+
+  {id:35,category:'white',groups:['group10'],name:'Homogeneous Leukoplakia',sub:'Oral leukoplakia — most prevalent form',alias:null,
+  images:['35-homogeneous-leukoplakia.jpg','35-homogeneous-leukoplakia-2.jpg'],
+  hint:'White plaque, well-defined irregular borders. Uniform surface. Asymptomatic. Routine exam finding.',
+  description:['Most prevalent form — most common precancerous lesion','White plaque, well-defined but irregular borders','Uniform, smooth or cracked/wrinkled/undulating','Usually without candida, asymptomatic','More frequent in men 40–49yo and women >70yo'],
+  tests:['Eliminate etiological factors first (tobacco, alcohol)','Check-up 2–4 weeks: good response = gone / no response = BIOPSY','Biopsy: With dysplasia = Leukodysplasia / Without = Leukokeratosis'],
+  treatment:['Eliminate etiological factors','Without dysplasia: antifungals if candida; topical/systemic treatment','With dysplasia: surgery with safety margins (conventional, laser, cryotherapy)'],
+  differential:['Oral Lichen Planus','Candidiasis','Frictional keratosis','Lichenoid reactions']},
+
+  {id:36,category:'white',groups:['group10'],name:'Non-Homogeneous Leukoplakia',sub:'Oral leukoplakia — high malignant potential',alias:null,
+  images:['36-non-homogeneous-leukoplakia.jpg'],
+  hint:'Uneven surface, multiple colors (white and red). Associated with yeast. Symptomatic.',
+  description:['Uneven surfaces, symptomatic, causes pain','Various colors: white AND red in one lesion','Associated with yeast infection ++','High incidence of carcinomas in situ, usually with dysplasia','Nodular type: white and red rounded excrescences, exophytic growth'],
+  tests:['Incisional biopsy — high priority','Histopathological study, evaluate for dysplasia'],
+  treatment:['Eliminate etiological factors + biopsy mandatory','With dysplasia: surgery with safety margins','Antifungals if candida superinfection'],
+  differential:['Homogeneous leukoplakia','Lichen planus (erosive)','Candidiasis','Erythroplakia']},
+
+  {id:37,category:'white',groups:['group10','group11'],name:'Exophytic / Verrucous Leukoplakia',sub:'Oral leukoplakia — HPV-associated, treatment resistant',alias:null,
+  images:['37-exophytic-leukoplakia.jpg'],
+  hint:'Whitish lesion with irregular filiform/cauliflower-like projections on vermilion. HPV-associated.',
+  description:['Whitish lesion with irregular filiform projections','Cauliflower-like lesions on the vermilion border','Treatment resistance, associated with HPV ++','Sometimes indistinguishable from verrucous carcinoma'],
+  tests:['Incisional biopsy','HPV testing'],
+  treatment:['Surgery with safety margins','Laser or cryotherapy','Close follow-up due to malignant potential'],
+  differential:['Verrucous carcinoma of Ackerman','Papilloma','Condyloma acuminatum','Non-homogeneous leukoplakia']},
 ];
 
-let tastyList=[];
+// ═══════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════
+let state = { queue:[], current:null, seen:0, total:0, imgIndex:0, sessionName:'' };
 
-function addTasty(){
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr; }
 
-tastyList.push({
-
-type:'',
-drink:'',
-sauce:0,
-chicken:0
-
-});
-
-render();
-
+function getPool(filter){
+  if(filter==='all') return [...CASES];
+  if(filter==='dyschromies') return CASES.filter(c=>c.category==='dyschromies');
+  if(filter==='white') return CASES.filter(c=>c.category==='white');
+  if(filter.startsWith('group')) return CASES.filter(c=>c.groups.includes(filter));
+  return [...CASES];
 }
 
-function removeTasty(i){
-
-tastyList.splice(i,1);
-render();
-
+function goHome(){
+  document.getElementById('screen-home').classList.add('active');
+  document.getElementById('screen-trainer').classList.remove('active');
 }
 
-function render(){
-
-const container=document.getElementById("tasty-list");
-
-container.innerHTML="";
-
-tastyList.forEach((t,i)=>{
-
-container.innerHTML+=`
-
-<div class="tasty-card">
-
-<div class="tasty-header">
-Tasty #${i+1}
-<button class="remove-btn" onclick="removeTasty(${i})">Supprimer</button>
-</div>
-
-<select onchange="tastyList[${i}].type=this.value">
-<option>Type</option>
-<option>Sweet & Spicy</option>
-<option>Sweet Only</option>
-<option>Spicy Only</option>
-<option>Sans sauce</option>
-</select>
-
-<br><br>
-
-<select onchange="tastyList[${i}].drink=this.value">
-<option>Boisson</option>
-${drinks.map(d=>`<option>${d}</option>`)}
-</select>
-
-<div class="qty-row">
-<div>Extra sauce</div>
-<div>
-<button class="qty-btn" onclick="change(${i},'sauce',-1)">-</button>
-${t.sauce}
-<button class="qty-btn" onclick="change(${i},'sauce',1)">+</button>
-</div>
-</div>
-
-<div class="qty-row">
-<div>Extra poulet</div>
-<div>
-<button class="qty-btn" onclick="change(${i},'chicken',-1)">-</button>
-${t.chicken}
-<button class="qty-btn" onclick="change(${i},'chicken',1)">+</button>
-</div>
-</div>
-
-</div>
-
-`;
-
-});
-
-updateTotal();
-
+function startSession(filter, name){
+  const pool = shuffle(getPool(filter));
+  if(pool.length===0){ alert('No cases in this group.'); return; }
+  state.queue = pool;
+  state.seen = 0;
+  state.total = pool.length;
+  state.sessionName = name;
+  document.getElementById('session-name').textContent = name;
+  document.getElementById('prog-total').textContent = pool.length;
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-trainer').classList.add('active');
+  loadNext();
 }
 
-function change(i,type,val){
-
-tastyList[i][type]=Math.max(0,tastyList[i][type]+val);
-render();
-
+function loadNext(){
+  if(state.queue.length===0){
+    // reshuffle
+    const filter = state.sessionName;
+    state.queue = shuffle(getPool(
+      filter.includes('Dyschromies') ? 'dyschromies' :
+      filter.includes('White') ? 'white' :
+      filter.includes('Group') || filter.includes('group') ? Object.keys(state).find(k=>k.startsWith('group'))||'all' : 'all'
+    ));
+  }
+  state.current = state.queue.shift();
+  state.imgIndex = 0;
+  renderCase();
 }
 
-function updateTotal(){
+function renderCase(){
+  const c = state.current;
 
-let total=0;
+  // Badge
+  const badge = document.getElementById('photo-badge');
+  if(c.category==='dyschromies'){ badge.textContent='Dyschromies'; badge.className='photo-badge pb-dys'; }
+  else { badge.textContent='White Lesions'; badge.className='photo-badge pb-white'; }
 
-tastyList.forEach(t=>{
+  document.getElementById('photo-case').textContent = `Case ${c.id} / ${CASES.length}`;
+  document.getElementById('hint-text').textContent = c.hint;
+  updateProgress();
+  renderImg();
 
-total+=9;
-total+=t.sauce*0.5;
-total+=t.chicken*2;
-
-});
-
-const delivery=parseFloat(document.getElementById("delivery").value);
-
-total+=delivery;
-
-document.getElementById("total").innerText=total.toFixed(2)+"€";
-
+  // Reset right panel
+  document.getElementById('action-card').style.display='flex';
+  document.getElementById('correction-card').classList.remove('visible');
 }
 
+function renderImg(){
+  const c = state.current;
+  const frame = document.getElementById('photo-frame');
+  const nav = document.getElementById('photo-nav');
+  const dots = document.getElementById('pnav-dots');
+  const imgs = c.images || [];
+  const src = imgs[state.imgIndex] ? 'images/'+imgs[state.imgIndex] : null;
+
+  if(src){
+    const img = document.createElement('img');
+    img.src = src; img.alt = c.name;
+    img.onerror = function(){ this.parentElement.innerHTML=`<div class="photo-placeholder"><svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg><div class="photo-placeholder-text" style="color:#ea580c">Not found: ${imgs[state.imgIndex]}</div></div>`; };
+    frame.innerHTML=''; frame.appendChild(img);
+  } else {
+    frame.innerHTML=`<div class="photo-placeholder"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg><div class="photo-placeholder-text">No image</div></div>`;
+  }
+
+  if(imgs.length>1){
+    nav.style.display='flex';
+    dots.innerHTML = imgs.map((_,i)=>`<div class="pnav-dot ${i===state.imgIndex?'active':''}" onclick="goToImg(${i})"></div>`).join('');
+    document.getElementById('pnav-prev').disabled = state.imgIndex===0;
+    document.getElementById('pnav-next').disabled = state.imgIndex===imgs.length-1;
+  } else { nav.style.display='none'; }
+}
+
+function prevImg(){ if(state.imgIndex>0){state.imgIndex--;renderImg();} }
+function nextImg(){ const imgs=state.current.images||[]; if(state.imgIndex<imgs.length-1){state.imgIndex++;renderImg();} }
+function goToImg(i){ state.imgIndex=i; renderImg(); }
+
+function updateProgress(){
+  document.getElementById('prog-seen').textContent = state.seen;
+  document.getElementById('prog-total').textContent = state.total;
+  const pct = state.total > 0 ? Math.min((state.seen/state.total)*100,100) : 0;
+  document.getElementById('prog-bar').style.width = pct+'%';
+}
+
+function showCorrection(){
+  const c = state.current;
+  state.seen++;
+  updateProgress();
+
+  document.getElementById('diag-name').textContent = c.name;
+  document.getElementById('diag-sub').textContent = c.sub;
+  const aliasEl = document.getElementById('diag-alias');
+  if(c.alias){ aliasEl.textContent=c.alias; aliasEl.style.display='inline-block'; } else { aliasEl.style.display='none'; }
+
+  document.getElementById('info-desc').innerHTML = c.description.map(d=>`<li>${d}</li>`).join('');
+  document.getElementById('info-tests').innerHTML = c.tests.map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('info-tx').innerHTML = (c.treatment&&c.treatment.length) ? c.treatment.map(t=>`<li>${t}</li>`).join('') : '<li style="color:var(--text-dim);font-style:italic">No specific treatment</li>';
+
+  const diffSec = document.getElementById('diff-section');
+  if(c.differential&&c.differential.length){
+    diffSec.style.display='block';
+    document.getElementById('info-diff').innerHTML = c.differential.map(d=>`<span class="diff-pill">${d}</span>`).join('');
+  } else { diffSec.style.display='none'; }
+
+  document.getElementById('action-card').style.display='none';
+  document.getElementById('correction-card').classList.add('visible');
+}
+
+function nextCase(){ loadNext(); }
+function skipCase(){
+  // put current back somewhere random
+  const pos = Math.floor(Math.random()*Math.max(state.queue.length,1));
+  state.queue.splice(pos,0,state.current);
+  loadNext();
+}
 </script>
-
 </body>
 </html>
-```
-
----
-
-Version inclut :
-
-Interface blanche moderne
-Rose + Bleu ciel
-Tasty personnalisable
-Extras par tasty
-Design propre
-Mobile optimisé
